@@ -1,0 +1,56 @@
+PANDUAN UNTUK TIM PRESENTASI — SIMRS RS SUKA SEHAT
+====================================================
+
+LANGKAH 0 — Ekstrak ZIP
+- Klik kanan file ZIP -> "Extract All..."
+- Hasilnya folder SIMRS_GABUNG_FINAL (di dalamnya ada index.php, login.php, README.txt, dst).
+
+
+BAGIAN 1 — MENJALANKAN DI LAPTOP DENGAN XAMPP (untuk presentasi)
+1. Download & install XAMPP: https://www.apachefriends.org  (pilih versi PHP 8.x)
+2. Salin folder SIMRS_GABUNG_FINAL ke  C:\xampp\htdocs\
+   (jadi: C:\xampp\htdocs\SIMRS_GABUNG_FINAL\index.php)
+3. Buka "XAMPP Control Panel" -> klik Start pada Apache dan MySQL (keduanya hijau).
+4. Buka browser: http://localhost/phpmyadmin
+   -> tab "Import" -> Choose File -> pilih SIMRS_GABUNG_FINAL\database\simrs_suka_sehat.sql
+   -> klik "Import" di bawah. Tunggu sampai muncul tulisan berhasil.
+5. Buka: http://localhost/SIMRS_GABUNG_FINAL/
+   Login contoh: admin / admin123  (akun semua role ada di README.txt)
+
+Tips:
+- Coba dulu sehari sebelum presentasi.
+- Ingin data kembali bersih? Import ulang file .sql di langkah 4.
+- MySQL tidak mau Start (merah)? Biasanya port 3306 dipakai aplikasi lain.
+  Tutup aplikasi MySQL lain, atau ganti port di XAMPP (Config -> my.ini) dan
+  sesuaikan DB_PORT di config\database.php.
+- Apache tidak mau Start? Port 80 biasanya dipakai Skype/IIS. Tutup aplikasinya
+  atau ganti port Apache menjadi 8080, lalu buka http://localhost:8080/SIMRS_GABUNG_FINAL/
+
+
+BAGIAN 2 — UPLOAD KE GITHUB
+Cara A (disarankan) — GitHub Desktop:
+1. Buat akun / login di https://github.com
+2. Install GitHub Desktop: https://desktop.github.com  lalu login.
+3. File -> Add local repository -> pilih folder SIMRS_GABUNG_FINAL
+   -> jika muncul "not a git repository", klik "create a repository" -> Create.
+4. Isi Summary (mis. "Versi final SIMRS") -> klik "Commit to main".
+5. Klik "Publish repository" -> beri nama (mis. simrs-suka-sehat) -> Publish.
+
+Cara B — lewat website saja:
+1. Di github.com klik "+" -> New repository -> beri nama -> Create repository.
+2. Klik "uploading an existing file", lalu seret ISI folder SIMRS_GABUNG_FINAL
+   (bukan foldernya) ke halaman tersebut -> Commit changes.
+   Catatan: website GitHub membatasi 100 file per upload. Jika gagal, upload
+   bertahap (mis. folder docs belakangan) atau pakai Cara A.
+
+File .gitignore sudah disiapkan agar file yang tidak perlu tidak ikut ter-upload.
+
+
+BAGIAN 3 — VERCEL (opsional, link online)
+Vercel tidak bisa langsung menjalankan PHP + MySQL. Butuh:
+- runtime PHP komunitas (vercel-php) + file vercel.json,
+- database MySQL online (mis. TiDB Cloud / Aiven, gratis),
+- dan isi SIMRS_DB_HOST, SIMRS_DB_PORT, SIMRS_DB_NAME, SIMRS_DB_USER, SIMRS_DB_PASS
+  di Vercel -> Project -> Settings -> Environment Variables.
+Keterbatasan: sesi login bisa ter-logout sendiri dan gambar radiologi yang diunggah
+tidak tersimpan permanen. Untuk presentasi, gunakan XAMPP (Bagian 1).

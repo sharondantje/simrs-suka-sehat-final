@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SIMRS - CPOE Order Management</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- SIMRS: tema seragam portal (font, warna, ukuran) -->
+<script>document.documentElement.dataset.simrsMod="valerie";if(window.top!==window.self)document.documentElement.classList.add("embedded-simrs-module");</script>
+<link rel="stylesheet" id="simrs-module-theme" href="../../assets/module-theme.css">
+</head>
+
+
+<body class="bg-gray-50 text-slate-800 flex flex-col h-screen">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="h-16 text-white flex items-center justify-between px-6 shadow-sm"
+            style="background-color: #0D6E6E;">
+
+        <!-- Logo / System Name -->
+        <div class="flex items-center gap-3">
+
+            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+                <img src="logo-rs.png"
+                     alt="Logo RS Suka Sehat"
+                     class="w-full h-full object-contain">
+            </div>
+
+            <div>
+                <div class="font-bold text-lg">
+                    SIMRS
+                </div>
+
+                <div class="text-xs text-teal-100">
+                    RS Suka Sehat
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- User -->
+        <div class="flex items-center gap-4">
+
+            <div class="text-right">
+
+                <div class="text-sm font-medium">
+                    dr. Valerie Adeline Nugroho
+                </div>
+
+                <div class="text-xs text-teal-100">
+                    Dokter
+                </div>
+
+            </div>
+
+
+            <div class="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center">
+                👤
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN LAYOUT
+    ====================================================== -->
+
+    <div class="flex flex-1 overflow-hidden">
+
+
+        <!-- =====================================================
+             SIDEBAR
+        ====================================================== -->
+
+        <aside class="w-60 bg-white border-r border-gray-200 flex flex-col">
+
+      <div class="px-5 pt-6 pb-3">
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+          Menu Utama
+        </p>
+      </div>
+
+      <nav class="space-y-1 px-3">
+
+        <!-- Dashboard -->
+        <a href="#"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-gray-100">
+            ⌂
+          </span>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- EMR -->
+        <a href="emr.html"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-teal-50">
+            📋
+          </span>
+          <span>EMR</span>
+        </a>
+
+        <!-- CPOE ACTIVE -->
+        <a id="orderMenu"
+           href="#"
+           onclick="showPage('order'); return false;"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold"
+           style="background-color: #EAF6F8; color: #0D6E6E;">
+          <span id="orderIcon" class="w-7 h-7 rounded-lg flex items-center justify-center text-sm"
+                style="background-color: #D6E8EE;">
+            ▣
+          </span>
+          <span>CPOE / Order</span>
+        </a>
+
+        <!-- Pantau Status Order -->
+        <a id="statusMenu" href="#"
+           onclick="showPage('status'); return false;"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span id="statusIcon" class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-blue-50">
+            ◷
+          </span>
+          <span>Pantau Status Order</span>
+        </a>
+
+        <!-- Batalkan Order -->
+        <a id="cancelMenu" href="#"
+           onclick="showPage('cancel'); return false;"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span id="cancelIcon" class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-red-50">
+            ×
+          </span>
+          <span>Batalkan Order</span>
+        </a>
+
+      </nav>
+
+      <div class="border-t border-gray-100 my-4"></div>
+
+      <div class="px-5 pb-3">
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+          Administrasi
+        </p>
+      </div>
+
+      <nav class="space-y-1 px-3">
+
+        <!-- RBAC -->
+        <a id="rbacMenu" href="#" onclick="showPage('rbac'); return false;"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span id="rbacIcon" class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-purple-50">♙</span>
+          <span>Hak Akses (RBAC)</span>
+        </a>
+
+        <!-- Audit Trail -->
+        <a id="auditMenu" href="#" onclick="showPage('audit'); return false;"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span id="auditIcon" class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-yellow-50">▤</span>
+          <span>Audit Trail</span>
+        </a>
+
+      </nav>
+
+      <div class="mt-auto p-4">
+        <div class="bg-gray-50 border border-gray-100 rounded-lg p-3">
+          <p class="text-xs font-semibold text-gray-600">Sistem Informasi</p>
+          <p class="text-xs text-gray-400 mt-1">CPOE Module</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+            <span class="text-xs text-green-600">Sistem aktif</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <main class="flex-1 overflow-y-auto">
+
+
+            <section id="orderPage" class="p-6">
+
+
+                <!-- Page Header -->
+
+                <div class="mb-6">
+
+                    <p class="text-xs text-gray-400 mb-1">
+                        SIMRS &gt; CPOE &gt; Order Management
+                    </p>
+
+                    <h1 class="text-2xl font-bold"
+                        style="color: #0F172A;">
+
+                        CPOE — Order Management
+
+                    </h1>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        Pembuatan dan pengelolaan order pelayanan pasien secara elektronik.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PATIENT CARD
+                ================================================== -->
+
+                <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6">
+
+
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+
+                        <!-- Patient Information -->
+
+                        <div>
+
+                            <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2">
+                                Pasien Terpilih
+                            </p>
+
+
+                            <h2 class="text-lg font-bold text-slate-900">
+                                Budi Santoso
+                            </h2>
+
+
+                            <div class="flex flex-wrap gap-5 mt-2 text-xs text-gray-500">
+
+                                <span>
+                                    No. RM:
+                                    <b class="text-gray-700">
+                                        RM-2026-000123
+                                    </b>
+                                </span>
+
+
+                                <span>
+                                    Kunjungan:
+                                    <b class="text-gray-700">
+                                        KJ-001
+                                    </b>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Verification Status -->
+
+                        <div class="flex items-center gap-2 px-3 py-2 rounded-lg"
+                             style="background-color: #EAF6F8; border: 1px solid #C7DDE5;">
+
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+
+                            <span class="text-xs font-semibold"
+                                  style="color: #0D6E6E;">
+
+                                Pasien Terverifikasi
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     STEPPER
+                ================================================== -->
+
+                <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6 overflow-x-auto">
+
+
+                    <div class="flex items-center min-w-[750px]">
+
+
+                        <!-- STEP 1 -->
+
+                        <div class="flex items-center">
+
+                            <div class="w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-bold"
+                                 style="background-color: #0D6E6E;">
+
+                                ✓
+
+                            </div>
+
+                            <span class="ml-2 text-xs font-medium"
+                                  style="color: #0D6E6E;">
+
+                                Pilih Pasien
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex-1 h-0.5 mx-3"
+                             style="background-color: #0D6E6E;">
+                        </div>
+
+
+
+                        <!-- STEP 2 -->
+
+                        <div class="flex items-center">
+
+                            <div class="w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-bold"
+                                 style="background-color: #0D6E6E;">
+
+                                ✓
+
+                            </div>
+
+                            <span class="ml-2 text-xs font-medium"
+                                  style="color: #0D6E6E;">
+
+                                Verifikasi
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex-1 h-0.5 mx-3"
+                             style="background-color: #0D6E6E;">
+                        </div>
+
+
+
+                        <!-- STEP 3 ACTIVE -->
+
+                        <div class="flex items-center">
+
+                            <div class="w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-bold"
+                                 style="background-color: #0A4D68;">
+
+                                3
+
+                            </div>
+
+                            <span class="ml-2 text-xs font-semibold"
+                                  style="color: #0A4D68;">
+
+                                Kelola Order
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex-1 h-0.5 mx-3 bg-gray-200"></div>
+
+
+
+                        <!-- STEP 4 -->
+
+                        <div class="flex items-center">
+
+                            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold">
+
+                                4
+
+                            </div>
+
+                            <span class="ml-2 text-xs text-gray-400">
+
+                                Validasi
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex-1 h-0.5 mx-3 bg-gray-200"></div>
+
+
+
+                        <!-- STEP 5 -->
+
+                        <div class="flex items-center">
+
+                            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold">
+
+                                5
+
+                            </div>
+
+                            <span class="ml-2 text-xs text-gray-400">
+
+                                Review
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex-1 h-0.5 mx-3 bg-gray-200"></div>
+
+
+
+                        <!-- STEP 6 -->
+
+                        <div class="flex items-center">
+
+                            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold">
+
+                                6
+
+                            </div>
+
+                            <span class="ml-2 text-xs text-gray-400">
+
+                                Submit
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ORDER SECTION
+                ================================================== -->
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+
+                    <!-- =================================================
+                         ORDER TYPE
+                    ================================================== -->
+
+                    <div class="lg:col-span-1 bg-white border border-gray-200 rounded-xl p-5">
+
+
+                        <h2 class="font-semibold text-gray-800">
+                            Jenis Order
+                        </h2>
+
+                        <p class="text-xs text-gray-500 mt-1 mb-4">
+                            Pilih jenis pelayanan yang akan diberikan.
+                        </p>
+
+
+                        <div class="space-y-2">
+
+
+                            <!-- Laboratorium ACTIVE -->
+
+                            <button type="button"
+                                    class="w-full text-left border-2 rounded-lg p-3"
+                                    style="border-color: #0D6E6E; background-color: #EAF6F8;">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-9 h-9 rounded-lg text-white flex items-center justify-center"
+                                         style="background-color: #0D6E6E;">
+
+                                        🧪
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <p class="text-sm font-semibold text-gray-800">
+                                            Laboratorium
+                                        </p>
+
+                                        <p class="text-xs text-gray-500">
+                                            Pemeriksaan laboratorium
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+
+
+                            <!-- Radiologi -->
+
+                            <button type="button"
+                                    class="w-full text-left border border-gray-200 rounded-lg p-3 hover:bg-gray-50">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
+
+                                        🩻
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <p class="text-sm font-semibold text-gray-800">
+                                            Radiologi
+                                        </p>
+
+                                        <p class="text-xs text-gray-500">
+                                            Pemeriksaan radiologi
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+
+
+                            <!-- Obat -->
+
+                            <button type="button"
+                                    class="w-full text-left border border-gray-200 rounded-lg p-3 hover:bg-gray-50">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
+
+                                        💊
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <p class="text-sm font-semibold text-gray-800">
+                                            Obat
+                                        </p>
+
+                                        <p class="text-xs text-gray-500">
+                                            Medication order
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+
+
+                            <!-- Tindakan Medis -->
+
+                            <button type="button"
+                                    class="w-full text-left border border-gray-200 rounded-lg p-3 hover:bg-gray-50">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
+
+                                        🩺
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <p class="text-sm font-semibold text-gray-800">
+                                            Tindakan Medis
+                                        </p>
+
+                                        <p class="text-xs text-gray-500">
+                                            Medical procedure
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+
+
+                            <!-- Konsultasi -->
+
+                            <button type="button"
+                                    class="w-full text-left border border-gray-200 rounded-lg p-3 hover:bg-gray-50">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
+
+                                        👨‍⚕️
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <p class="text-sm font-semibold text-gray-800">
+                                            Konsultasi
+                                        </p>
+
+                                        <p class="text-xs text-gray-500">
+                                            Consultation order
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         DETAIL ORDER
+                    ================================================== -->
+
+                    <div class="lg:col-span-2 bg-white border border-gray-200 rounded-xl p-5">
+
+
+                        <div class="flex items-center justify-between mb-5">
+
+                            <div>
+
+                                <h2 class="font-semibold text-gray-800">
+                                    Detail Order
+                                </h2>
+
+                                <p class="text-xs text-gray-500 mt-1">
+                                    Lengkapi informasi sesuai jenis order.
+                                </p>
+
+                            </div>
+
+
+                            <span class="text-xs font-semibold px-3 py-1.5 rounded-full"
+                                  style="background-color: #EAF6F8; color: #0D6E6E;">
+
+                                Laboratorium
+
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- Form -->
+
+                        <div class="space-y-5">
+
+
+                            <!-- Examination -->
+
+                            <div>
+
+                                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                                    Pemeriksaan
+                                </label>
+
+                                <select class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none">
+
+                                    <option>
+                                        Pilih pemeriksaan
+                                    </option>
+
+                                    <option>
+                                        Darah Lengkap
+                                    </option>
+
+                                    <option>
+                                        Gula Darah Sewaktu
+                                    </option>
+
+                                    <option>
+                                        HbA1c
+                                    </option>
+
+                                    <option>
+                                        Profil Lipid
+                                    </option>
+
+                                    <option>
+                                        Fungsi Ginjal
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <!-- Priority -->
+
+                            <div>
+
+                                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                                    Prioritas
+                                </label>
+
+
+                                <div class="flex gap-6">
+
+                                    <label class="flex items-center gap-2 text-sm text-gray-600">
+
+                                        <input type="radio"
+                                               name="priority"
+                                               checked>
+
+                                        Routine
+
+                                    </label>
+
+
+                                    <label class="flex items-center gap-2 text-sm text-gray-600">
+
+                                        <input type="radio"
+                                               name="priority">
+
+                                        Urgent
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Clinical Instruction -->
+
+                            <div>
+
+                                <label class="block text-xs font-semibold text-gray-600 mb-2">
+
+                                    Instruksi Klinis
+
+                                </label>
+
+
+                                <textarea rows="4"
+                                          placeholder="Masukkan instruksi atau informasi klinis yang diperlukan..."
+                                          class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none"></textarea>
+
+                            </div>
+
+
+
+                            <!-- Action -->
+
+                            <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
+
+
+                                <button type="button"
+                                        class="px-4 py-2.5 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50">
+
+                                    Reset
+
+                                </button>
+
+
+                                <button type="button"
+                                        class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg"
+                                        style="background-color: #0D6E6E;">
+
+                                    Simpan & Lanjut
+
+                                </button>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     INFORMATION
+                ================================================== -->
+
+                <div class="mt-6 rounded-xl border p-4"
+                     style="background-color: #F7FBFC; border-color: #C7DDE5;">
+
+
+                    <div class="flex gap-3">
+
+                        <span class="text-lg">
+                            ℹ️
+                        </span>
+
+
+                        <div>
+
+                            <p class="text-sm font-semibold"
+                               style="color: #0F172A;">
+
+                                Informasi CPOE
+
+                            </p>
+
+
+                            <p class="text-xs text-gray-600 mt-1">
+
+                                Pastikan identitas pasien dan informasi order
+                                telah sesuai sebelum order dilanjutkan ke tahap berikutnya.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Footer -->
+
+                <div class="text-center text-xs text-gray-400 mt-6 pb-4">
+
+                    SIMRS • Computerized Physician Order Entry
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 PAGE 2 — PANTAU STATUS ORDER
+            ================================================== -->
+            <section id="statusPage" class="p-6 hidden">
+
+                <div class="mb-6">
+                    <p class="text-xs text-gray-400 mb-1">
+                        SIMRS &gt; CPOE &gt; Pantau Status Order
+                    </p>
+
+                    <h1 class="text-2xl font-bold"
+                        style="color: #0F172A;">
+                        Pantau Status Order
+                    </h1>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        Memantau status order pelayanan pasien secara elektronik.
+                    </p>
+                </div>
+
+
+                <!-- Search / Filter -->
+                <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6">
+
+                    <div class="flex flex-col md:flex-row gap-3">
+
+                        <div class="flex-1">
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">
+                                Cari Order
+                            </label>
+
+                            <input type="text"
+                                   placeholder="Cari No. Order atau nama pasien..."
+                                   class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none">
+                        </div>
+
+                        <div class="md:w-48">
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">
+                                Status
+                            </label>
+
+                            <select class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none">
+                                <option>Semua Status</option>
+                                <option>Draft</option>
+                                <option>Menunggu Validasi</option>
+                                <option>Tervalidasi</option>
+                                <option>Diproses</option>
+                                <option>Selesai</option>
+                                <option>Dibatalkan</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-end">
+                            <button type="button"
+                                    class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg"
+                                    style="background-color: #0D6E6E;">
+                                Cari
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Status Summary -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                        <p class="text-xs text-gray-500">Menunggu Validasi</p>
+                        <p class="text-xl font-bold mt-1"
+                           style="color: #0D6E6E;">1</p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                        <p class="text-xs text-gray-500">Diproses</p>
+                        <p class="text-xl font-bold mt-1 text-blue-600">1</p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                        <p class="text-xs text-gray-500">Selesai</p>
+                        <p class="text-xl font-bold mt-1 text-green-600">1</p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-4">
+                        <p class="text-xs text-gray-500">Dibatalkan</p>
+                        <p class="text-xl font-bold mt-1 text-red-500">0</p>
+                    </div>
+
+                </div>
+
+
+                <!-- Order Table -->
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+
+                    <div class="p-5 border-b border-gray-100">
+                        <h2 class="font-semibold text-gray-800">
+                            Daftar Order
+                        </h2>
+
+                        <p class="text-xs text-gray-500 mt-1">
+                            Status order pasien pada kunjungan aktif.
+                        </p>
+                    </div>
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full text-sm">
+
+                            <thead class="bg-gray-50">
+                                <tr class="text-left text-xs text-gray-500">
+                                    <th class="px-5 py-3 font-semibold">No. Order</th>
+                                    <th class="px-5 py-3 font-semibold">Pasien</th>
+                                    <th class="px-5 py-3 font-semibold">Jenis</th>
+                                    <th class="px-5 py-3 font-semibold">Detail</th>
+                                    <th class="px-5 py-3 font-semibold">Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="divide-y divide-gray-100">
+
+                                <tr>
+                                    <td class="px-5 py-4 text-xs font-semibold text-gray-700">
+                                        ORD-001
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-700">
+                                        Budi Santoso
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-600">
+                                        Laboratorium
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-600">
+                                        Darah Lengkap
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="text-xs font-semibold px-3 py-1.5 rounded-full"
+                                              style="background-color: #FFF7E6; color: #A16207;">
+                                            Menunggu Validasi
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="px-5 py-4 text-xs font-semibold text-gray-700">
+                                        ORD-002
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-700">
+                                        Siti Aminah
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-600">
+                                        Radiologi
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-600">
+                                        Thorax AP
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="text-xs font-semibold px-3 py-1.5 rounded-full"
+                                              style="background-color: #EFF6FF; color: #1D5FA8;">
+                                            Diproses
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="px-5 py-4 text-xs font-semibold text-gray-700">
+                                        ORD-003
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-700">
+                                        Andi Wijaya
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-600">
+                                        Obat
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-gray-600">
+                                        Amlodipine 5 mg
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="text-xs font-semibold px-3 py-1.5 rounded-full"
+                                              style="background-color: #ECFDF5; color: #15803D;">
+                                            Selesai
+                                        </span>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+                <div class="text-center text-xs text-gray-400 mt-6 pb-4">
+                    SIMRS • Computerized Physician Order Entry
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PAGE 3 — BATALKAN ORDER
+            ================================================== -->
+            <section id="cancelPage" class="p-6 hidden">
+
+                <div class="mb-6">
+                    <p class="text-xs text-gray-400 mb-1">
+                        SIMRS &gt; CPOE &gt; Batalkan Order
+                    </p>
+
+                    <h1 class="text-2xl font-bold"
+                        style="color: #0F172A;">
+                        Batalkan Order
+                    </h1>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        Pembatalan order yang masih dapat dibatalkan.
+                    </p>
+                </div>
+
+
+                <!-- Select Order -->
+                <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6">
+
+                    <label class="block text-xs font-semibold text-gray-600 mb-2">
+                        Pilih Order
+                    </label>
+
+                    <select id="cancelOrderSelect"
+                            onchange="updateCancelOrder()"
+                            class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none">
+
+                        <option value="ORD-001">
+                            ORD-001 — Budi Santoso — Laboratorium — Menunggu Validasi
+                        </option>
+
+                        <option value="ORD-004">
+                            ORD-004 — Budi Santoso — Tindakan Medis — Draft
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Order Detail -->
+                <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6">
+
+                    <div class="flex items-center justify-between mb-5">
+
+                        <div>
+                            <h2 class="font-semibold text-gray-800">
+                                Detail Order
+                            </h2>
+
+                            <p class="text-xs text-gray-500 mt-1">
+                                Pastikan order yang dipilih sudah sesuai sebelum dibatalkan.
+                            </p>
+                        </div>
+
+                        <span id="cancelStatus"
+                              class="text-xs font-semibold px-3 py-1.5 rounded-full"
+                              style="background-color: #FFF7E6; color: #A16207;">
+                            Menunggu Validasi
+                        </span>
+
+                    </div>
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <div>
+                            <p class="text-xs text-gray-400 mb-1">No. Order</p>
+                            <p id="cancelOrderNumber"
+                               class="text-sm font-semibold text-gray-800">
+                                ORD-001
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs text-gray-400 mb-1">Pasien</p>
+                            <p class="text-sm font-semibold text-gray-800">
+                                Budi Santoso
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs text-gray-400 mb-1">Jenis Order</p>
+                            <p class="text-sm text-gray-700">
+                                Laboratorium
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs text-gray-400 mb-1">Detail</p>
+                            <p class="text-sm text-gray-700">
+                                Darah Lengkap
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Cancellation Reason -->
+                <div class="bg-white border border-gray-200 rounded-xl p-5">
+
+                    <label class="block text-xs font-semibold text-gray-600 mb-2">
+                        Alasan Pembatalan
+                    </label>
+
+                    <textarea id="cancelReason"
+                              rows="4"
+                              placeholder="Masukkan alasan pembatalan order..."
+                              class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none"></textarea>
+
+
+                    <div class="flex justify-end gap-3 pt-4 mt-4 border-t border-gray-100">
+
+                        <button type="button"
+                                onclick="showPage('status')"
+                                class="px-4 py-2.5 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            Kembali
+                        </button>
+
+                        <button type="button"
+                                onclick="cancelOrder()"
+                                class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg"
+                                style="background-color: #C0362C;">
+                            Batalkan Order
+                        </button>
+
+                    </div>
+
+
+                    <div id="cancelMessage"
+                         class="hidden mt-4 rounded-lg border p-3"
+                         style="background-color: #F7FBFC; border-color: #C7DDE5;">
+
+                        <p class="text-xs font-semibold"
+                           style="color: #0D6E6E;">
+                            Order berhasil dibatalkan.
+                        </p>
+
+                        <p class="text-xs text-gray-600 mt-1">
+                            Status order berubah menjadi Dibatalkan pada prototype ini.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="text-center text-xs text-gray-400 mt-6 pb-4">
+                    SIMRS • Computerized Physician Order Entry
+                </div>
+
+            </section>
+
+
+            <section id="rbacPage" class="p-6 hidden">
+                <div class="mb-6">
+                    <p class="text-xs text-gray-400 mb-1">SIMRS &gt; Administrasi &gt; Hak Akses (RBAC)</p>
+                    <h1 class="text-2xl font-bold" style="color:#0F172A;">Hak Akses (RBAC)</h1>
+                    <p class="text-sm text-gray-500 mt-1">Pengaturan hak akses pengguna sesuai dengan peran dalam sistem.</p>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6">
+                    <div class="flex items-center justify-between mb-5">
+                        <div>
+                            <h2 class="font-semibold text-gray-800">Daftar Pengguna</h2>
+                            <p class="text-xs text-gray-500 mt-1">Role menentukan menu dan fungsi yang dapat diakses pengguna.</p>
+                        </div>
+                        <button type="button" onclick="alert('Fitur tambah pengguna tersedia pada prototype.')"
+                                class="px-4 py-2.5 text-sm font-semibold text-white rounded-lg"
+                                style="background-color:#0D6E6E;">+ Tambah Pengguna</button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50">
+                                <tr class="text-left text-xs text-gray-500">
+                                    <th class="px-5 py-3">Nama</th>
+                                    <th class="px-5 py-3">Username</th>
+                                    <th class="px-5 py-3">Role</th>
+                                    <th class="px-5 py-3">Status</th>
+                                    <th class="px-5 py-3">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="px-5 py-4 font-semibold">dr. Valerie Adeline Nugroho</td>
+                                    <td class="px-5 py-4 text-gray-600">valerie</td>
+                                    <td class="px-5 py-4"><span class="text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#EAF6F8;color:#0D6E6E;">Dokter</span></td>
+                                    <td class="px-5 py-4 text-xs font-semibold text-green-600">Aktif</td>
+                                    <td class="px-5 py-4"><button type="button" onclick="showAccessDetail()" class="text-xs font-semibold" style="color:#0D6E6E;">Lihat Hak Akses</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-4 font-semibold">Siti Rahma</td>
+                                    <td class="px-5 py-4 text-gray-600">siti.rahma</td>
+                                    <td class="px-5 py-4"><span class="text-xs font-semibold px-3 py-1.5 rounded-full" style="background:#F3E8FF;color:#7E22CE;">Perawat</span></td>
+                                    <td class="px-5 py-4 text-xs font-semibold text-green-600">Aktif</td>
+                                    <td class="px-5 py-4"><button type="button" onclick="showAccessDetail()" class="text-xs font-semibold" style="color:#0D6E6E;">Lihat Hak Akses</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="accessDetail" class="hidden bg-white border border-gray-200 rounded-xl p-5">
+                    <h2 class="font-semibold text-gray-800">Hak Akses Modul</h2>
+                    <p class="text-xs text-gray-500 mt-1 mb-4">Contoh pengaturan akses pengguna.</p>
+                    <div class="space-y-3">
+                        <label class="flex justify-between border border-gray-100 rounded-lg p-3 text-sm">EMR <input type="checkbox" checked></label>
+                        <label class="flex justify-between border border-gray-100 rounded-lg p-3 text-sm">CPOE / Order <input type="checkbox" checked></label>
+                        <label class="flex justify-between border border-gray-100 rounded-lg p-3 text-sm">Pantau Status Order <input type="checkbox" checked></label>
+                        <label class="flex justify-between border border-gray-100 rounded-lg p-3 text-sm">Batalkan Order <input type="checkbox" checked></label>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button type="button" onclick="alert('Hak akses berhasil disimpan pada prototype.')"
+                                class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg"
+                                style="background-color:#0D6E6E;">Simpan Hak Akses</button>
+                    </div>
+                </div>
+                <div class="text-center text-xs text-gray-400 mt-6 pb-4">SIMRS • Role Based Access Control</div>
+            </section>
+
+            <section id="auditPage" class="p-6 hidden">
+                <div class="mb-6">
+                    <p class="text-xs text-gray-400 mb-1">SIMRS &gt; Administrasi &gt; Audit Trail</p>
+                    <h1 class="text-2xl font-bold" style="color:#0F172A;">Audit Trail</h1>
+                    <p class="text-sm text-gray-500 mt-1">Riwayat aktivitas pengguna pada sistem CPOE.</p>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6">
+                    <div class="flex flex-col md:flex-row gap-3">
+                        <input type="text" class="flex-1 border border-gray-200 rounded-lg px-3 py-2.5 text-sm"
+                               placeholder="Cari pengguna atau aktivitas...">
+                        <select class="md:w-48 border border-gray-200 rounded-lg px-3 py-2.5 text-sm">
+                            <option>Semua Menu</option>
+                            <option>CPOE</option>
+                            <option>EMR</option>
+                            <option>Administrasi</option>
+                        </select>
+                        <button type="button" onclick="alert('Filter audit trail dijalankan pada prototype.')"
+                                class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg"
+                                style="background-color:#0D6E6E;">Cari</button>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    <div class="p-5 border-b border-gray-100">
+                        <h2 class="font-semibold text-gray-800">Riwayat Aktivitas</h2>
+                        <p class="text-xs text-gray-500 mt-1">Catatan aktivitas pengguna yang tersimpan dalam sistem.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50">
+                                <tr class="text-left text-xs text-gray-500">
+                                    <th class="px-5 py-3">Waktu</th>
+                                    <th class="px-5 py-3">Pengguna</th>
+                                    <th class="px-5 py-3">Aktivitas</th>
+                                    <th class="px-5 py-3">Menu</th>
+                                    <th class="px-5 py-3">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="px-5 py-4 text-xs">15 Sep 2026, 10:12</td>
+                                    <td class="px-5 py-4 font-semibold">dr. Valerie Adeline Nugroho</td>
+                                    <td class="px-5 py-4 text-gray-600">Membuat order ORD-004</td>
+                                    <td class="px-5 py-4">CPOE</td>
+                                    <td class="px-5 py-4 text-xs font-semibold text-green-600">Berhasil</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-4 text-xs">15 Sep 2026, 10:18</td>
+                                    <td class="px-5 py-4 font-semibold">dr. Valerie Adeline Nugroho</td>
+                                    <td class="px-5 py-4 text-gray-600">Memperbarui data order</td>
+                                    <td class="px-5 py-4">CPOE</td>
+                                    <td class="px-5 py-4 text-xs font-semibold text-green-600">Berhasil</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-4 text-xs">15 Sep 2026, 10:25</td>
+                                    <td class="px-5 py-4 font-semibold">Siti Rahma</td>
+                                    <td class="px-5 py-4 text-gray-600">Membuka rekam medis pasien</td>
+                                    <td class="px-5 py-4">EMR</td>
+                                    <td class="px-5 py-4 text-xs font-semibold text-green-600">Berhasil</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="text-center text-xs text-gray-400 mt-6 pb-4">SIMRS • Audit Trail</div>
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        function showPage(page) {
+
+            // Sembunyikan semua halaman
+            document.getElementById("orderPage").classList.add("hidden");
+            document.getElementById("statusPage").classList.add("hidden");
+            document.getElementById("cancelPage").classList.add("hidden");
+            document.getElementById("rbacPage").classList.add("hidden");
+            document.getElementById("auditPage").classList.add("hidden");
+
+            // Tampilkan halaman yang dipilih
+            document.getElementById(page + "Page").classList.remove("hidden");
+
+            // Reset menu
+            resetMenu("orderMenu", "orderIcon");
+            resetMenu("statusMenu", "statusIcon");
+            resetMenu("cancelMenu", "cancelIcon");
+            resetMenu("rbacMenu", "rbacIcon");
+            resetMenu("auditMenu", "auditIcon");
+
+            // Aktifkan menu yang dipilih
+            if (page === "order") {
+                activeMenu("orderMenu", "orderIcon");
+            }
+
+            if (page === "status") {
+                activeMenu("statusMenu", "statusIcon");
+            }
+
+            if (page === "cancel") {
+                activeMenu("cancelMenu", "cancelIcon");
+            }
+
+            if (page === "rbac") {
+                activeMenu("rbacMenu", "rbacIcon");
+            }
+
+            if (page === "audit") {
+                activeMenu("auditMenu", "auditIcon");
+            }
+        }
+
+
+        function resetMenu(menuId, iconId) {
+
+            const menu = document.getElementById(menuId);
+            const icon = document.getElementById(iconId);
+
+            menu.className =
+                "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50";
+
+            menu.style.backgroundColor = "";
+            menu.style.color = "";
+
+            icon.className =
+                "w-7 h-7 rounded-lg flex items-center justify-center text-sm";
+
+            if (iconId === "orderIcon") {
+                icon.classList.add("bg-gray-100");
+            }
+
+            if (iconId === "statusIcon") {
+                icon.classList.add("bg-blue-50");
+            }
+
+            if (iconId === "cancelIcon") {
+                icon.classList.add("bg-red-50");
+            }
+
+            icon.style.backgroundColor = "";
+        }
+
+
+        function activeMenu(menuId, iconId) {
+
+            const menu = document.getElementById(menuId);
+            const icon = document.getElementById(iconId);
+
+            menu.className =
+                "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold";
+
+            menu.style.backgroundColor = "#EAF6F8";
+            menu.style.color = "#0D6E6E";
+
+            icon.className =
+                "w-7 h-7 rounded-lg flex items-center justify-center text-sm";
+
+            icon.style.backgroundColor = "#D6E8EE";
+        }
+
+
+        function showAccessDetail() {
+            document.getElementById("accessDetail").classList.remove("hidden");
+        }
+
+        function updateCancelOrder() {
+
+            const select = document.getElementById("cancelOrderSelect");
+            const status = document.getElementById("cancelStatus");
+            const orderNumber = document.getElementById("cancelOrderNumber");
+
+            if (select.value === "ORD-004") {
+
+                orderNumber.textContent = "ORD-004";
+
+                status.textContent = "Draft";
+                status.style.backgroundColor = "#F3F4F6";
+                status.style.color = "#4B5563";
+
+            } else {
+
+                orderNumber.textContent = "ORD-001";
+
+                status.textContent = "Menunggu Validasi";
+                status.style.backgroundColor = "#FFF7E6";
+                status.style.color = "#A16207";
+            }
+        }
+
+
+        function cancelOrder() {
+
+            const reason =
+                document.getElementById("cancelReason").value.trim();
+
+            if (reason === "") {
+                alert("Silakan masukkan alasan pembatalan terlebih dahulu.");
+                return;
+            }
+
+            document.getElementById("cancelMessage")
+                .classList.remove("hidden");
+
+            const status =
+                document.getElementById("cancelStatus");
+
+            status.textContent = "Dibatalkan";
+            status.style.backgroundColor = "#FEF2F2";
+            status.style.color = "#C0362C";
+
+            alert("Order berhasil dibatalkan.");
+        }
+
+    </script>
+
+</body>
+
+</html>

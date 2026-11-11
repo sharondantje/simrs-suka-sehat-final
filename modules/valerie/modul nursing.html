@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMRS - Nursing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- SIMRS: tema seragam portal (font, warna, ukuran) -->
+<script>document.documentElement.dataset.simrsMod="valerie";if(window.top!==window.self)document.documentElement.classList.add("embedded-simrs-module");</script>
+<link rel="stylesheet" id="simrs-module-theme" href="../../assets/module-theme.css">
+</head>
+
+<body class="bg-gray-50 text-slate-800 flex flex-col h-screen">
+
+  <!-- HEADER -->
+  <header class="h-16 flex items-center justify-between px-5 shrink-0" style="background-color:#0D6E6E;">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+        <img src="logo-rs.png" alt="Logo RS Suka Sehat" class="w-full h-full object-contain">
+      </div>
+      <div>
+        <div class="font-bold text-lg text-white">SIMRS</div>
+        <div class="text-xs text-teal-100">RS Suka Sehat</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 text-white">
+      <div class="text-right">
+        <div class="text-sm font-semibold">Valerie Adeline Nugroho</div>
+        <div class="text-xs text-teal-100">Perawat</div>
+      </div>
+      <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-sm">👤</div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 min-h-0">
+
+    <!-- SIDEBAR -->
+    <aside class="w-60 bg-white border-r border-gray-200 flex flex-col shrink-0">
+      <div class="p-3">
+        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-1">Menu Utama</div>
+
+        <a href="#" onclick="showPage('home')" id="homeMenu"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-gray-100">⌂</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="emr.html"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-teal-50">📋</span>
+          <span>EMR</span>
+        </a>
+
+        <a href="#" onclick="showPage('home')" id="nursingMenu"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold"
+           style="background-color:#EAF6F8;color:#0D6E6E;">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm" style="background-color:#D6E8EE;">♙</span>
+          <span>Nursing</span>
+        </a>
+
+        <div class="mt-1 ml-10 space-y-1">
+          <button onclick="showPage('identifikasi')" class="w-full text-left text-xs text-gray-500 hover:text-[#0D6E6E] py-1.5">Identifikasi & Persiapan</button>
+          <button onclick="showPage('assessment')" class="w-full text-left text-xs text-gray-500 hover:text-[#0D6E6E] py-1.5">Assessment & Vital Sign</button>
+          <button onclick="showPage('nursingNote')" class="w-full text-left text-xs text-gray-500 hover:text-[#0D6E6E] py-1.5">Nursing Note</button>
+          <button onclick="showPage('obat')" class="w-full text-left text-xs text-gray-500 hover:text-[#0D6E6E] py-1.5">Pemberian Obat</button>
+          <button onclick="showPage('monitoring')" class="w-full text-left text-xs text-gray-500 hover:text-[#0D6E6E] py-1.5">Monitoring Pasien</button>
+          <button onclick="showPage('finalisasi')" class="w-full text-left text-xs text-gray-500 hover:text-[#0D6E6E] py-1.5">Finalisasi Dokumentasi</button>
+        </div>
+      </div>
+
+      <div class="mt-auto p-4">
+        <div class="bg-gray-50 border border-gray-100 rounded-lg p-3">
+          <p class="text-xs font-semibold text-gray-600">Sistem Informasi</p>
+          <p class="text-xs text-gray-400 mt-1">Nursing</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+            <span class="text-xs text-green-600">Sistem aktif</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 overflow-y-auto">
+      <section class="p-6">
+        <div class="w-full">
+
+          <!-- HOME -->
+          <div id="homePage" class="page">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+              <span>SIMRS</span><span>›</span><span>Nursing</span><span>›</span><span class="text-gray-600">Nursing</span>
+            </div>
+            <h1 class="text-xl font-bold text-slate-800">Nursing</h1>
+            <p class="text-sm text-gray-500 mt-1">Pencatatan pelayanan keperawatan melalui Sistem Informasi Manajemen Rumah Sakit.</p>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5 mt-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="font-semibold text-slate-800">Pasien Aktif</h2>
+                  <p class="text-xs text-gray-500 mt-1">Pilih fungsi pelayanan keperawatan yang akan dilakukan.</p>
+                </div>
+                <span class="text-xs text-green-600 font-medium"><span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>Data tersedia</span>
+              </div>
+
+              <div class="flex items-center gap-4 mt-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <div class="w-11 h-11 rounded-full bg-teal-50 text-[#0D6E6E] flex items-center justify-center font-semibold">BS</div>
+                <div class="flex-1">
+                  <div class="font-semibold text-sm">Budi Santoso</div>
+                  <div class="text-xs text-gray-500 mt-1">RM-2026-000123 • KJ-001 • Rawat Inap</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-green-600 font-medium"><span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>Terverifikasi</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 mt-5">
+              <button onclick="showPage('identifikasi')" class="text-left bg-white border border-gray-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-teal-50 text-[#0D6E6E] flex items-center justify-center">①</div>
+                <h3 class="text-sm font-semibold mt-3">Identifikasi & Persiapan</h3>
+                <p class="text-xs text-gray-500 mt-1">Verifikasi identitas pasien dan persiapan assessment.</p>
+              </button>
+
+              <button onclick="showPage('assessment')" class="text-left bg-white border border-gray-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">♡</div>
+                <h3 class="text-sm font-semibold mt-3">Assessment & Vital Sign</h3>
+                <p class="text-xs text-gray-500 mt-1">Catat keluhan, kondisi umum, alergi, dan tanda vital.</p>
+              </button>
+
+              <button onclick="showPage('nursingNote')" class="text-left bg-white border border-gray-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">▤</div>
+                <h3 class="text-sm font-semibold mt-3">Nursing Note</h3>
+                <p class="text-xs text-gray-500 mt-1">Dokumentasikan perkembangan dan tindakan keperawatan.</p>
+              </button>
+
+              <button onclick="showPage('obat')" class="text-left bg-white border border-gray-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">＋</div>
+                <h3 class="text-sm font-semibold mt-3">Pemberian Obat</h3>
+                <p class="text-xs text-gray-500 mt-1">Verifikasi dan dokumentasikan pemberian obat.</p>
+              </button>
+
+              <button onclick="showPage('monitoring')" class="text-left bg-white border border-gray-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-yellow-50 text-yellow-600 flex items-center justify-center">◷</div>
+                <h3 class="text-sm font-semibold mt-3">Monitoring Pasien</h3>
+                <p class="text-xs text-gray-500 mt-1">Pantau kondisi dan perubahan klinis pasien.</p>
+              </button>
+
+              <button onclick="showPage('finalisasi')" class="text-left bg-white border border-gray-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-green-50 text-green-600 flex items-center justify-center">✓</div>
+                <h3 class="text-sm font-semibold mt-3">Finalisasi Dokumentasi</h3>
+                <p class="text-xs text-gray-500 mt-1">Periksa kelengkapan dan selesaikan dokumentasi pasien.</p>
+              </button>
+            </div>
+
+
+          </div>
+
+          <!-- IDENTIFIKASI -->
+          <div id="identifikasiPage" class="page hidden">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2"><span>SIMRS</span><span>›</span><span>Nursing</span><span>›</span><span class="text-gray-600">Identifikasi Pasien & Persiapan</span></div>
+            <h1 class="text-xl font-bold">Identifikasi Pasien & Persiapan</h1>
+            <p class="text-sm text-gray-500 mt-1">Verifikasi identitas pasien sebelum melakukan assessment.</p>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5 mt-5">
+              <div class="flex items-center justify-between mb-4">
+                <div><h2 class="font-semibold">Identifikasi Pasien</h2><p class="text-xs text-gray-500 mt-1">Masukkan minimal dua identitas pasien.</p></div>
+                <span id="identityStatus" class="text-xs text-gray-500">Belum diverifikasi</span>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="text-xs font-medium text-gray-600">Nama Lengkap</label><input id="patientName" value="Budi Santoso" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"></div>
+                <div><label class="text-xs font-medium text-gray-600">Tanggal Lahir</label><input id="birthDate" value="12 Mei 1978" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"></div>
+                <div><label class="text-xs font-medium text-gray-600">Nomor Rekam Medis</label><input id="medicalRecord" value="RM-2026-000123" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"></div>
+                <div><label class="text-xs font-medium text-gray-600">Ruang / Unit</label><input value="Ruang Melati 02" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"></div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg text-xs text-blue-700">Pastikan identitas pasien sesuai sebelum melanjutkan pelayanan.</div>
+              <div class="flex justify-end gap-2 mt-5 pt-4 border-t border-gray-100">
+                <button onclick="showPage('home')" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600">Kembali</button>
+                <button onclick="verifyPatient()" class="px-4 py-2 bg-[#0D6E6E] text-white rounded-lg text-sm font-medium">Lanjut / Simpan</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ASSESSMENT -->
+          <div id="assessmentPage" class="page hidden">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2"><span>SIMRS</span><span>›</span><span>Nursing</span><span>›</span><span class="text-gray-600">Assessment & Vital Sign</span></div>
+            <h1 class="text-xl font-bold">Assessment & Vital Sign</h1>
+            <p class="text-sm text-gray-500 mt-1">Dokumentasi assessment awal dan tanda vital pasien.</p>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5 mt-5">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">♡</div>
+                <div><h2 class="font-semibold">Assessment Pasien</h2><p class="text-xs text-gray-500 mt-1">Isi data sesuai hasil assessment.</p></div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="text-xs font-medium text-gray-600">Keluhan Utama</label><textarea id="assessmentComplaint" rows="3" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm" placeholder="Masukkan keluhan pasien"></textarea></div>
+                <div><label class="text-xs font-medium text-gray-600">Kondisi Umum</label><textarea id="generalCondition" rows="3" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm" placeholder="Masukkan kondisi umum"></textarea></div>
+                <div><label class="text-xs font-medium text-gray-600">Riwayat yang Relevan</label><textarea id="relevantHistory" rows="3" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm" placeholder="Riwayat relevan"></textarea></div>
+                <div><label class="text-xs font-medium text-gray-600">Alergi</label><input id="allergy" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm" placeholder="Tidak ada / sebutkan alergi"></div>
+              </div>
+
+              <div class="mt-5 pt-5 border-t border-gray-100">
+                <h3 class="text-sm font-semibold">Vital Sign</h3>
+                <div class="grid grid-cols-4 gap-3 mt-3">
+                  <div><label class="text-xs text-gray-500">Tekanan Darah</label><input id="bp" placeholder="120/80 mmHg" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm"></div>
+                  <div><label class="text-xs text-gray-500">Nadi</label><input id="pulse" placeholder="80 x/menit" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm"></div>
+                  <div><label class="text-xs text-gray-500">Suhu</label><input id="temp" placeholder="36.7 °C" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm"></div>
+                  <div><label class="text-xs text-gray-500">RR</label><input id="rr" placeholder="18 x/menit" class="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm"></div>
+                </div>
+              </div>
+
+              <div id="assessmentMessage" class="hidden mt-4 p-3 rounded-lg text-xs"></div>
+              <div class="flex justify-end gap-2 mt-5 pt-4 border-t border-gray-100">
+                <button onclick="showPage('home')" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600">Kembali</button>
+                <button onclick="saveAssessment()" class="px-4 py-2 bg-[#0D6E6E] text-white rounded-lg text-sm font-medium">Simpan Assessment</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- NURSING NOTE -->
+          <div id="nursingNotePage" class="page hidden">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2"><span>SIMRS</span><span>›</span><span>Nursing</span><span>›</span><span class="text-gray-600">Pencatatan Nursing Note</span></div>
+            <h1 class="text-xl font-bold">Pencatatan Nursing Note</h1>
+            <p class="text-sm text-gray-500 mt-1">Catat perkembangan kondisi dan tindakan keperawatan secara objektif dan kronologis.</p>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5 mt-5">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-9 h-9 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">▤</div>
+                <div><h2 class="font-semibold">Data Pasien</h2><p class="text-xs text-gray-500 mt-1">Budi Santoso • RM-2026-000123 • Ruang Melati 02</p></div>
+              </div>
+              <label class="text-xs font-medium text-gray-600">Catatan Keperawatan</label>
+              <textarea id="nursingNote" rows="7" class="w-full mt-1 px-3 py-3 border border-gray-200 rounded-lg text-sm" placeholder="Tuliskan perkembangan kondisi pasien, tindakan keperawatan yang dilakukan, respons pasien, dan informasi relevan lainnya secara objektif dan kronologis."></textarea>
+              <div id="noteMessage" class="hidden mt-4 p-3 rounded-lg text-xs"></div>
+              <div class="flex justify-end gap-2 mt-5 pt-4 border-t border-gray-100">
+                <button onclick="showPage('home')" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600">Kembali</button>
+                <button onclick="saveNote()" class="px-4 py-2 bg-[#0D6E6E] text-white rounded-lg text-sm font-medium">Simpan</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- OBAT -->
+          <div id="obatPage" class="page hidden">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2"><span>SIMRS</span><span>›</span><span>Nursing</span><span>›</span><span class="text-gray-600">Pemberian Obat</span></div>
+            <h1 class="text-xl font-bold">Pemberian Obat</h1>
+            <p class="text-sm text-gray-500 mt-1">Verifikasi instruksi dan dokumentasikan pemberian obat pasien.</p>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5 mt-5">
+              <div class="flex items-center justify-between mb-4">
+                <div><h2 class="font-semibold">Data Pemberian Obat</h2><p class="text-xs text-gray-500 mt-1">Pasien: Budi Santoso • RM-2026-000123</p></div>
+                <span class="text-xs text-green-600 font-medium">Order aktif</span>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="text-xs font-medium text-gray-600">Obat</label><select id="medicine" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"><option>Amlodipine 5 mg</option><option>Paracetamol 500 mg</option><option>Omeprazole 20 mg</option></select></div>
+                <div><label class="text-xs font-medium text-gray-600">Dosis</label><input id="dose" value="1 tablet" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"></div>
+                <div><label class="text-xs font-medium text-gray-600">Rute</label><select id="route" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"><option>Oral</option><option>IV</option><option>IM</option><option>SC</option></select></div>
+                <div><label class="text-xs font-medium text-gray-600">Waktu Pemberian</label><input id="medTime" type="time" value="20:00" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm"></div>
+              </div>
+
+              <div class="mt-5 p-4 bg-yellow-50 border border-yellow-100 rounded-lg">
+                <h3 class="text-xs font-semibold text-yellow-800">Verifikasi sebelum pemberian</h3>
+                <div class="grid grid-cols-2 gap-2 mt-3 text-xs text-yellow-900">
+                  <label><input id="rightPatient" type="checkbox" class="mr-2">Pasien benar</label>
+                  <label><input id="rightDrug" type="checkbox" class="mr-2">Obat benar</label>
+                  <label><input id="rightDose" type="checkbox" class="mr-2">Dosis benar</label>
+                  <label><input id="rightRoute" type="checkbox" class="mr-2">Rute & waktu benar</label>
+                  <label><input id="rightAllergy" type="checkbox" class="mr-2">Alergi telah diperiksa</label>
+                </div>
+              </div>
+
+              <div class="mt-4"><label class="text-xs font-medium text-gray-600">Respons pasien / observasi</label><textarea id="medResponse" rows="3" class="w-full mt-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm" placeholder="Catat respons pasien jika diperlukan"></textarea></div>
+              <div id="medMessage" class="hidden mt-4 p-3 rounded-lg text-xs"></div>
+              <div class="flex justify-end gap-2 mt-5 pt-4 border-t border-gray-100">
+                <button onclick="showPage('home')" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600">Kembali</button>
+                <button onclick="saveMedicine()" class="px-4 py-2 bg-[#0D6E6E] text-white rounded-lg text-sm font-medium">Simpan Pemberian Obat</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MONITORING -->
+          <div id="monitoringPage" class="page hidden">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2"><span>SIMRS</span><span>›</span><span>Nursing</span><span>›</span><span class="text-gray-600">Monitoring Pasien</span></div>
+            <h1 class="text-xl font-bold">Monitoring Pasien</h1>
+            <p class="text-sm text-gray-500 mt-1">Pantau kondisi pasien dan catat perubahan klinis sesuai kebutuhan.</p>
+
+            <div class="grid grid-cols-3 gap-4 mt-5">
+              <div class="col-span-2 bg-white border border-gray-200 rounded-xl p-5">
+                <div class="flex items-center gap-3 mb-4"><div class="w-9 h-9 rounded-lg bg-yellow-50 text-yellow-600 flex items-center justify-center">◷</div><div><h2 class="font-semibold">Monitoring Kondisi Pasien</h2><p class="text-xs text-gray-500 mt-1">Budi Santoso • Ruang Melati 02</p></div></div>
+                <div class="grid grid-cols-4 gap-3">
+                  <div class="p-3 bg-gray-50 rounded-lg"><div class="text-xs text-gray-500">TD</div><div class="text-sm font-semibold mt-1">120/80</div><div class="text-xs text-gray-400">mmHg</div></div>
+                  <div class="p-3 bg-gray-50 rounded-lg"><div class="text-xs text-gray-500">Nadi</div><div class="text-sm font-semibold mt-1">82</div><div class="text-xs text-gray-400">x/menit</div></div>
+                  <div class="p-3 bg-gray-50 rounded-lg"><div class="text-xs text-gray-500">Suhu</div><div class="text-sm font-semibold mt-1">36.8</div><div class="text-xs text-gray-400">°C</div></div>
+                  <div class="p-3 bg-gray-50 rounded-lg"><div class="text-xs text-gray-500">RR</div><div class="text-sm font-semibold mt-1">18</div><div class="text-xs text-gray-400">x/menit</div></div>
+                </div>
+                <div class="mt-5"><label class="text-xs font-medium text-gray-600">Hasil Monitoring / Perubahan Kondisi</label><textarea id="monitoringNote" rows="6" class="w-full mt-1 px-3 py-3 border border-gray-200 rounded-lg text-sm" placeholder="Catat hasil monitoring, tanda/gejala, atau perubahan kondisi pasien."></textarea></div>
+                <div id="monitorMessage" class="hidden mt-4 p-3 rounded-lg text-xs"></div>
+                <div class="flex justify-end gap-2 mt-5 pt-4 border-t border-gray-100"><button onclick="showPage('home')" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600">Kembali</button><button onclick="saveMonitoring()" class="px-4 py-2 bg-[#0D6E6E] text-white rounded-lg text-sm font-medium">Simpan</button></div>
+              </div>
+              <div class="bg-white border border-gray-200 rounded-xl p-5 h-fit"><h3 class="text-sm font-semibold">Ringkasan Kondisi Terbaru</h3><p class="text-xs text-gray-500 mt-1">Data terakhir yang tersedia.</p><div class="mt-4 space-y-3"><div class="flex justify-between text-xs"><span class="text-gray-500">Status</span><span class="font-medium text-green-600">Stabil</span></div><div class="flex justify-between text-xs"><span class="text-gray-500">Monitoring terakhir</span><span>20:00</span></div><div class="border-t border-gray-100 pt-3 text-xs text-gray-500">Tidak ada perubahan kondisi yang dilaporkan.</div></div></div>
+            </div>
+          </div>
+
+          <!-- FINALISASI -->
+          <div id="finalisasiPage" class="page hidden">
+            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2"><span>SIMRS</span><span>›</span><span>Nursing</span><span>›</span><span class="text-gray-600">Finalisasi Dokumentasi</span></div>
+            <h1 class="text-xl font-bold">Finalisasi Dokumentasi</h1>
+            <p class="text-sm text-gray-500 mt-1">Periksa kelengkapan catatan sebelum dokumentasi diselesaikan.</p>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5 mt-5">
+              <div class="flex items-center gap-3 mb-5"><div class="w-9 h-9 rounded-lg bg-green-50 text-green-600 flex items-center justify-center">✓</div><div><h2 class="font-semibold">Review Dokumentasi</h2><p class="text-xs text-gray-500 mt-1">Budi Santoso • RM-2026-000123</p></div></div>
+              <div class="space-y-3">
+                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg text-sm"><span>Identifikasi pasien</span><span class="text-green-600"><input type="checkbox" checked class="mr-2">Lengkap</span></label>
+                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg text-sm"><span>Assessment & Vital Sign</span><span class="text-green-600"><input type="checkbox" checked class="mr-2">Lengkap</span></label>
+                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg text-sm"><span>Nursing Note</span><span class="text-green-600"><input type="checkbox" id="finalNote" class="mr-2">Lengkap</span></label>
+                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg text-sm"><span>Pemberian obat & respons pasien</span><span class="text-green-600"><input type="checkbox" id="finalMedicine" class="mr-2">Lengkap</span></label>
+                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg text-sm"><span>Monitoring pasien</span><span class="text-green-600"><input type="checkbox" id="finalMonitoring" class="mr-2">Lengkap</span></label>
+              </div>
+
+              <div class="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg text-xs text-blue-700">Jika ada item yang belum sesuai, perbaiki atau lengkapi data terkait sebelum finalisasi.</div>
+              <div id="finalMessage" class="hidden mt-4 p-3 rounded-lg text-xs"></div>
+              <div class="flex justify-between gap-2 mt-5 pt-4 border-t border-gray-100"><button onclick="showPage('home')" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600">Kembali ke Nursing</button><button onclick="finalizeDocumentation()" class="px-4 py-2 bg-[#0D6E6E] text-white rounded-lg text-sm font-medium">Selesai</button></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const pages = ['home','identifikasi','assessment','nursingNote','obat','monitoring','finalisasi'];
+
+    function showPage(page) {
+      pages.forEach(name => {
+        const el = document.getElementById(name + 'Page');
+        if (el) el.classList.add('hidden');
+      });
+      const selected = document.getElementById(page + 'Page');
+      if (selected) selected.classList.remove('hidden');
+      window.scrollTo(0,0);
+    }
+
+    function showMessage(id, text, type='success') {
+      const el = document.getElementById(id);
+      el.classList.remove('hidden');
+      el.textContent = text;
+      if (type === 'success') {
+        el.className = 'mt-4 p-3 rounded-lg text-xs bg-green-50 border border-green-100 text-green-700';
+      } else {
+        el.className = 'mt-4 p-3 rounded-lg text-xs bg-red-50 border border-red-100 text-red-700';
+      }
+    }
+
+    function verifyPatient() {
+      const name = document.getElementById('patientName').value.trim();
+      const birth = document.getElementById('birthDate').value.trim();
+      const rm = document.getElementById('medicalRecord').value.trim();
+      const status = document.getElementById('identityStatus');
+      if (!name || !birth || !rm) {
+        status.textContent = 'Identitas belum lengkap';
+        status.className = 'text-xs text-red-600';
+        return;
+      }
+      status.innerHTML = '<span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>Identitas berhasil diverifikasi';
+      status.className = 'text-xs text-green-600 font-medium';
+      setTimeout(() => showPage('assessment'), 500);
+    }
+
+    function saveAssessment() {
+      const complaint = document.getElementById('assessmentComplaint').value.trim();
+      const bp = document.getElementById('bp').value.trim();
+      if (!complaint || !bp) {
+        showMessage('assessmentMessage','Data belum lengkap atau tidak valid. Silakan lengkapi assessment dan vital sign.','error');
+        return;
+      }
+      showMessage('assessmentMessage','Data assessment berhasil disimpan ke SIMRS/RME.');
+    }
+
+    function saveNote() {
+      const note = document.getElementById('nursingNote').value.trim();
+      if (!note) {
+        showMessage('noteMessage','Catatan nursing note belum diisi.','error');
+        return;
+      }
+      showMessage('noteMessage','Catatan berhasil disimpan ke database SIMRS/RME.');
+    }
+
+    function saveMedicine() {
+      const checks = ['rightPatient','rightDrug','rightDose','rightRoute','rightAllergy'];
+      if (!checks.every(id => document.getElementById(id).checked)) {
+        showMessage('medMessage','Verifikasi belum lengkap. Pastikan seluruh item pemeriksaan sudah sesuai.','error');
+        return;
+      }
+      showMessage('medMessage','Pemberian obat dan respons pasien berhasil disimpan ke SIMRS/RME.');
+    }
+
+    function saveMonitoring() {
+      const note = document.getElementById('monitoringNote').value.trim();
+      if (!note) {
+        showMessage('monitorMessage','Hasil monitoring belum diisi.','error');
+        return;
+      }
+      showMessage('monitorMessage','Monitoring berhasil disimpan dan ringkasan kondisi pasien telah diperbarui.');
+    }
+
+    function finalizeDocumentation() {
+      const ids = ['finalNote','finalMedicine','finalMonitoring'];
+      if (!ids.every(id => document.getElementById(id).checked)) {
+        showMessage('finalMessage','Masih ada item yang belum sesuai. Perbaiki atau lengkapi item terkait sebelum finalisasi.','error');
+        return;
+      }
+      showMessage('finalMessage','Dokumentasi berhasil difinalisasi dan status pasien telah diperbarui.');
+    }
+
+    function logout() {
+      if (confirm('Apakah Anda yakin ingin keluar?')) {
+        alert('Sesi pengguna telah diakhiri.');
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+/* =====================================================================
+   MODULE THEME — menyeragamkan modul anggota (Claudia, Valerie, Sharon,
+   Max, Mikael) dengan design system SIMRS (assets/simrs.css):
+   palet resmi (Primary #0D6E6E, Secondary #0A4D68, Tertiary #005F73,
+   Neutral #0F172A), font Inter + JetBrains Mono (label/kode/data),
+   ukuran teks/tabel/tombol sama dengan portal.
+   File ini di-link di <head> tiap modul dan juga disuntikkan oleh portal.
+   Selector diawali html[data-simrs-mod="..."] agar hanya berlaku di modul itu.
+   ===================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --u-primary:#0D6E6E; --u-primary-dark:#00524F; --u-secondary:#0A4D68; --u-tertiary:#005F73; --u-neutral:#0F172A; --u-accent:#005F73;
+  --u-bg:#F2F5F9; --u-card:#FFFFFF; --u-line:#DCE3EC; --u-line-soft:#E8EDF3; --u-soft:#E6F2F2; --u-soft-2:#F7F9FC; --u-neutral-100:#F1F5F9;
+  --u-heading:#0F172A; --u-text:#0F172A; --u-body:#334155; --u-muted:#475569;
+  --u-success:#15803D; --u-success-bg:#DCFCE7; --u-warning:#B45309; --u-warning-bg:#FEF3C7;
+  --u-danger:#B91C1C; --u-danger-bg:#FEE2E2; --u-info:#1D4ED8; --u-info-bg:#DBEAFE;
+  --u-font:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --u-mono:'JetBrains Mono',ui-monospace,'Roboto Mono','Courier New',monospace;
+}
+
+/* ---------- 1. SEMUA MODUL: font & dasar ---------- */
+html[data-simrs-mod] body,
+html[data-simrs-mod] body :is(div,span,p,a,b,strong,small,label,li,td,th,h1,h2,h3,h4,h5,h6,button,input,select,textarea,section,article,header,main,nav){
+  font-family:var(--u-font)!important;
+}
+html[data-simrs-mod] body{background:var(--u-bg)!important;color:var(--u-text);-webkit-font-smoothing:antialiased}
+
+/* ---------- 2. MODE TERTANAM DI PORTAL: sembunyikan sidebar/topbar modul ---------- */
+html.embedded-simrs-module body{margin:0!important}
+html.embedded-simrs-module[data-simrs-mod="claudia"] :is(aside.sidebar,.sidebar,header.topbar,.topbar){display:none!important}
+html.embedded-simrs-module[data-simrs-mod="claudia"] :is(.main,.main-content){margin-left:0!important;width:100%!important;max-width:none!important}
+html.embedded-simrs-module[data-simrs-mod="claudia"] .app{display:block!important}
+html.embedded-simrs-module[data-simrs-mod="max"] :is(.sidebar,.topbar){display:none!important}
+html.embedded-simrs-module[data-simrs-mod="max"] .shell{display:block!important}
+html.embedded-simrs-module[data-simrs-mod="mikael"] :is(aside.sidebar,.topbar){display:none!important}
+html.embedded-simrs-module[data-simrs-mod="mikael"] .main{margin-left:0!important}
+html.embedded-simrs-module[data-simrs-mod="kasir"] :is(.side,.top){display:none!important}
+html.embedded-simrs-module[data-simrs-mod="kasir"] .main{margin-left:0!important}
+html.embedded-simrs-module[data-simrs-mod="max"] .layout{display:block!important}
+html.embedded-simrs-module[data-simrs-mod="max"] .main{padding:24px!important}
+html.embedded-simrs-module :is(.content,.main,.main-content){padding-top:22px}
+
+/* ---------- 3. SKALA TIPOGRAFI SERAGAM (semua modul, sesuai Panduan UI SIMRS) ----------
+   H1 judul halaman 24px/700 · H2 judul seksi 18px/600 · isi/tabel/input 14px
+   label, header tabel, tombol & badge 12–13px JetBrains Mono · angka KPI 28px */
+html[data-simrs-mod] body h1{font-size:24px!important;font-weight:800!important;color:var(--u-heading)!important;line-height:1.3!important;letter-spacing:0!important}
+html[data-simrs-mod] body :is(input,select,textarea){font-size:14px!important;color:var(--u-text)}
+html[data-simrs-mod] body label{font-size:12px!important}
+html[data-simrs-mod] body button{font-size:14px}
+html[data-simrs-mod] body table{font-size:14px!important}
+html[data-simrs-mod] body th{font-size:12px!important;color:var(--u-body)!important;font-weight:600!important;background-color:var(--u-neutral-100)}
+html[data-simrs-mod] body td{font-size:14px!important}
+html[data-simrs-mod] body :is(input,select,textarea):focus{outline:none;border-color:var(--u-primary)!important;box-shadow:0 0 0 3px rgba(13,110,110,.12)!important}
+
+/* ---------- 3b. BATAS BAWAH UKURAN TEKS (otomatis dari CSS asli modul) ----------
+   Teks 7–11px di modul asli dinaikkan ke 12px (caption minimum Panduan UI). */
+html[data-simrs-mod="claudia"] .action-button,
+html[data-simrs-mod="claudia"] .activity-badge,
+html[data-simrs-mod="claudia"] .activity-item,
+html[data-simrs-mod="claudia"] .audit-stat-label,
+html[data-simrs-mod="claudia"] .document-table th,
+html[data-simrs-mod="claudia"] .exam-box .label,
+html[data-simrs-mod="claudia"] .form-help,
+html[data-simrs-mod="claudia"] .info-label,
+html[data-simrs-mod="claudia"] .log-status,
+html[data-simrs-mod="claudia"] .panel-subtitle,
+html[data-simrs-mod="claudia"] .patient-detail,
+html[data-simrs-mod="claudia"] .patient-type,
+html[data-simrs-mod="claudia"] .permission-item,
+html[data-simrs-mod="claudia"] .profile-status,
+html[data-simrs-mod="claudia"] .radiologist-role,
+html[data-simrs-mod="claudia"] .role-badge,
+html[data-simrs-mod="claudia"] .security-description,
+html[data-simrs-mod="claudia"] .security-label,
+html[data-simrs-mod="claudia"] .stat-change,
+html[data-simrs-mod="claudia"] .stat-description,
+html[data-simrs-mod="claudia"] .stat-label,
+html[data-simrs-mod="claudia"] .stat-note,
+html[data-simrs-mod="claudia"] .status,
+html[data-simrs-mod="claudia"] .status-ok,
+html[data-simrs-mod="claudia"] .user-name small,
+html[data-simrs-mod="claudia"] .username{font-size:12px!important}
+html[data-simrs-mod="claudia"] .account-table th,
+html[data-simrs-mod="claudia"] .action-btn,
+html[data-simrs-mod="claudia"] .action-button,
+html[data-simrs-mod="claudia"] .activity-table th,
+html[data-simrs-mod="claudia"] .add-user,
+html[data-simrs-mod="claudia"] .audit-subtitle,
+html[data-simrs-mod="claudia"] .breadcrumb,
+html[data-simrs-mod="claudia"] .btn,
+html[data-simrs-mod="claudia"] .btn-add,
+html[data-simrs-mod="claudia"] .btn-cancel,
+html[data-simrs-mod="claudia"] .btn-danger,
+html[data-simrs-mod="claudia"] .btn-edit,
+html[data-simrs-mod="claudia"] .btn-pilih,
+html[data-simrs-mod="claudia"] .btn-save,
+html[data-simrs-mod="claudia"] .btn-search,
+html[data-simrs-mod="claudia"] .danger-text,
+html[data-simrs-mod="claudia"] .detail-label,
+html[data-simrs-mod="claudia"] .detail-value,
+html[data-simrs-mod="claudia"] .exam-box .value,
+html[data-simrs-mod="claudia"] .export-button,
+html[data-simrs-mod="claudia"] .filter-button,
+html[data-simrs-mod="claudia"] .filter-control,
+html[data-simrs-mod="claudia"] .filter-label,
+html[data-simrs-mod="claudia"] .footer-note,
+html[data-simrs-mod="claudia"] .form-control,
+html[data-simrs-mod="claudia"] .form-group label,
+html[data-simrs-mod="claudia"] .form-hint,
+html[data-simrs-mod="claudia"] .form-label,
+html[data-simrs-mod="claudia"] .gender,
+html[data-simrs-mod="claudia"] .info-box,
+html[data-simrs-mod="claudia"] .info-row,
+html[data-simrs-mod="claudia"] .info-value,
+html[data-simrs-mod="claudia"] .module-title,
+html[data-simrs-mod="claudia"] .note-count,
+html[data-simrs-mod="claudia"] .order-button,
+html[data-simrs-mod="claudia"] .page-btn,
+html[data-simrs-mod="claudia"] .page-button,
+html[data-simrs-mod="claudia"] .page-date,
+html[data-simrs-mod="claudia"] .page-date strong,
+html[data-simrs-mod="claudia"] .panel-subtitle,
+html[data-simrs-mod="claudia"] .patient-field label,
+html[data-simrs-mod="claudia"] .profile-role,
+html[data-simrs-mod="claudia"] .quick-description,
+html[data-simrs-mod="claudia"] .radio-option,
+html[data-simrs-mod="claudia"] .radiologist-name,
+html[data-simrs-mod="claudia"] .reset-filter,
+html[data-simrs-mod="claudia"] .result-count,
+html[data-simrs-mod="claudia"] .result-label,
+html[data-simrs-mod="claudia"] .result-text,
+html[data-simrs-mod="claudia"] .results-table thead th,
+html[data-simrs-mod="claudia"] .role-table th,
+html[data-simrs-mod="claudia"] .rows-per-page,
+html[data-simrs-mod="claudia"] .search-box,
+html[data-simrs-mod="claudia"] .search-button,
+html[data-simrs-mod="claudia"] .search-info,
+html[data-simrs-mod="claudia"] .section-link,
+html[data-simrs-mod="claudia"] .security-alert,
+html[data-simrs-mod="claudia"] .security-title,
+html[data-simrs-mod="claudia"] .stat-desc,
+html[data-simrs-mod="claudia"] .stat-label,
+html[data-simrs-mod="claudia"] .stat-link,
+html[data-simrs-mod="claudia"] .stat-title,
+html[data-simrs-mod="claudia"] .status-badge,
+html[data-simrs-mod="claudia"] .status-filter,
+html[data-simrs-mod="claudia"] .status-label,
+html[data-simrs-mod="claudia"] .status-text,
+html[data-simrs-mod="claudia"] .status-value,
+html[data-simrs-mod="claudia"] .summary-label,
+html[data-simrs-mod="claudia"] .tab,
+html[data-simrs-mod="claudia"] .table-footer,
+html[data-simrs-mod="claudia"] .table-info,
+html[data-simrs-mod="claudia"] .user-name small,
+html[data-simrs-mod="claudia"] .user-role,
+html[data-simrs-mod="claudia"] .user-search,
+html[data-simrs-mod="claudia"] .view-button,
+html[data-simrs-mod="claudia"] .viewer-control,
+html[data-simrs-mod="claudia"] .viewer-label,
+html[data-simrs-mod="claudia"] .welcome-sub,
+html[data-simrs-mod="claudia"] .welcome-text,
+html[data-simrs-mod="claudia"] input[type="date"],
+html[data-simrs-mod="claudia"] input[type="tel"],
+html[data-simrs-mod="claudia"] input[type="text"],
+html[data-simrs-mod="claudia"] thead th{font-size:12px!important}
+html[data-simrs-mod="mikael"] .bar span,
+html[data-simrs-mod="mikael"] .btn,
+html[data-simrs-mod="mikael"] .kpi .hint,
+html[data-simrs-mod="mikael"] .kpi .label,
+html[data-simrs-mod="mikael"] .metric .name,
+html[data-simrs-mod="mikael"] th{font-size:12px!important}
+html[data-simrs-mod="mikael"] .avatar,
+html[data-simrs-mod="mikael"] .card h3,
+html[data-simrs-mod="mikael"] .check,
+html[data-simrs-mod="mikael"] .field label,
+html[data-simrs-mod="mikael"] .muted,
+html[data-simrs-mod="mikael"] .notice,
+html[data-simrs-mod="mikael"] .pagehead p,
+html[data-simrs-mod="mikael"] .role,
+html[data-simrs-mod="mikael"] .small{font-size:12px!important}
+html[data-simrs-mod="max"] .role-note,
+html[data-simrs-mod="max"] .step-num{font-size:12px!important}
+
+/* ---------- 4. CLAUDIA (registrasi, data pasien, radiologi) ---------- */
+html[data-simrs-mod="claudia"] body{font-size:14px}
+html[data-simrs-mod="claudia"] :is(.page-title,.page-head) p,
+html[data-simrs-mod="claudia"] .page-subtitle{font-size:14px!important;color:var(--u-muted)!important}
+html[data-simrs-mod="claudia"] :is(.panel-title,.section-title,.card-title,.panel-header h2,.panel-header h3,.form-section-title){font-size:18px!important;color:var(--u-heading)!important}
+html[data-simrs-mod="claudia"] :is(button,.btn,a.btn,.action-btn,.page-btn){font-size:14px!important}
+html[data-simrs-mod="claudia"] :is(.badge,[class*="badge"],.status,.gender-badge,.role-badge){font-size:12px!important}
+html[data-simrs-mod="claudia"] :is(.breadcrumb,.breadcrumbs){font-size:12px!important}
+html[data-simrs-mod="claudia"] p{font-size:14px}
+html[data-simrs-mod="claudia"] :is(.stat-number,.stat-value,.summary-number,.audit-stat-number,.security-number){font-size:28px!important;color:var(--u-heading)!important;font-weight:800!important;line-height:1.15!important}
+html[data-simrs-mod="claudia"] :is(.stat-label){font-size:12px!important}
+
+/* ---------- 5. MAX (laboratorium, farmasi, scheduling) ---------- */
+html[data-simrs-mod="max"] body{font-size:14px;color:var(--u-text)}
+html[data-simrs-mod="max"] .page-head{margin-bottom:20px!important}
+html[data-simrs-mod="max"] .page-head p{font-size:14px!important}
+html[data-simrs-mod="max"] :is(.card h3,.section-title){font-size:18px!important;color:var(--u-heading)!important}
+html[data-simrs-mod="max"] .card{border-radius:16px!important;border-color:var(--u-line)!important;box-shadow:0 1px 2px rgba(15,23,42,.04),0 4px 14px rgba(15,23,42,.04)!important}
+html[data-simrs-mod="max"] .metric strong{font-size:28px!important;color:var(--u-heading)!important}
+html[data-simrs-mod="max"] .btn{border-radius:6px!important;font-weight:600!important}
+html[data-simrs-mod="max"] .chip{font-size:12px!important}
+
+/* ---------- 6. MIKAEL (gudang, executive, analyst) — ukuran asli 7–11px dinaikkan ---------- */
+html[data-simrs-mod="mikael"] body{font-size:14px!important}
+html[data-simrs-mod="mikael"] .content{max-width:none!important;padding:24px!important}
+html[data-simrs-mod="mikael"] .pagehead{margin-bottom:20px!important}
+html[data-simrs-mod="mikael"] .pagehead h2{font-size:24px!important;color:var(--u-heading)!important}
+html[data-simrs-mod="mikael"] .pagehead p{font-size:14px!important}
+html[data-simrs-mod="mikael"] .grid{gap:16px!important}
+html[data-simrs-mod="mikael"] .card{border-radius:16px!important;padding:18px 20px!important;border-color:var(--u-line)!important;box-shadow:0 1px 2px rgba(15,23,42,.04),0 4px 14px rgba(15,23,42,.04)!important}
+html[data-simrs-mod="mikael"] .card h3{font-size:18px!important;margin-bottom:14px!important}
+html[data-simrs-mod="mikael"] :is(.kpi .label,.metric .name){font-size:12px!important;font-weight:500!important;color:var(--u-muted)!important}
+html[data-simrs-mod="mikael"] :is(.kpi .num,.metric .value){font-size:28px!important;color:var(--u-heading)!important}
+html[data-simrs-mod="mikael"] .kpi .hint{font-size:12px!important}
+html[data-simrs-mod="mikael"] .icon{width:44px!important;height:44px!important;border-radius:16px!important;font-size:20px!important}
+html[data-simrs-mod="mikael"] :is(.muted,.small,.check,.notice,.bar span){font-size:12px!important}
+html[data-simrs-mod="mikael"] .field label{font-size:12px!important;color:var(--u-heading)!important;font-weight:600!important}
+html[data-simrs-mod="mikael"] :is(.field input,.field select,.field textarea){font-size:14px!important;padding:10px 12px!important;border-radius:6px!important}
+html[data-simrs-mod="mikael"] th{padding:11px 14px!important;background:var(--u-neutral-100)!important}
+html[data-simrs-mod="mikael"] td{padding:11px 14px!important}
+html[data-simrs-mod="mikael"] .badge{font-size:12px!important;font-weight:600!important;padding:3px 9px!important;border-radius:6px!important}
+html[data-simrs-mod="mikael"] .btn{font-size:14px!important;font-weight:600!important;padding:9px 16px!important;border-radius:6px!important}
+html[data-simrs-mod="mikael"] .primary{background:var(--u-primary)!important;color:#fff!important}
+html[data-simrs-mod="mikael"] .hero h3{font-size:18px!important}
+
+/* ---------- 7. KASIR (Sharon, kasir_sso.html) ---------- */
+html[data-simrs-mod="kasir"] body{font-size:14px!important}
+html[data-simrs-mod="kasir"] .content{padding:24px!important}
+html[data-simrs-mod="kasir"] .sub{font-size:14px!important;color:var(--u-muted)!important}
+html[data-simrs-mod="kasir"] h2{font-size:18px!important;color:var(--u-heading)!important}
+html[data-simrs-mod="kasir"] .card{border-radius:16px!important;border-color:var(--u-line)!important}
+html[data-simrs-mod="kasir"] .kpi small{font-size:12px!important}
+html[data-simrs-mod="kasir"] .kpi b{font-size:28px!important;color:var(--u-heading)!important}
+html[data-simrs-mod="kasir"] .badge{font-size:12px!important;font-weight:600}
+html[data-simrs-mod="kasir"] th{background:var(--u-neutral-100)!important}
+html[data-simrs-mod="kasir"] .btn{border-radius:6px!important;padding:9px 14px!important;font-weight:600}
+
+/* ---------- 8. VALERIE (EMR, CPOE, Nursing — Tailwind) ---------- */
+html[data-simrs-mod="valerie"] body{color:var(--u-text)!important}
+html[data-simrs-mod="valerie"] .text-\[11px\]{font-size:12px!important}
+html[data-simrs-mod="valerie"] :is(.text-slate-800,.text-gray-800,.text-slate-900){color:var(--u-text)!important}
+html[data-simrs-mod="valerie"] :is(.text-gray-500,.text-gray-400){color:var(--u-muted)!important}
+html[data-simrs-mod="valerie"] :is(.text-gray-600,.text-gray-700,.text-slate-700){color:var(--u-body)!important}
+html[data-simrs-mod="valerie"] :is(.border-gray-200,.border-gray-100){border-color:var(--u-line)!important}
+html[data-simrs-mod="valerie"] :is(.bg-gray-50){background-color:var(--u-soft-2)!important}
+html[data-simrs-mod="valerie"] .rounded-xl{border-radius:16px!important}
+
+/* ---------- 9. SHARON (Rawat Jalan, Rawat Inap, IGD, Billing — React/Tailwind) ---------- */
+html[data-simrs-mod="sharon"] body,html[data-simrs-mod="sharon"] #root{background:var(--u-bg)!important}
+
+/* ---------- 10. SKALA TAILWIND (Valerie & Sharon) disamakan dengan design system ---------- */
+html:is([data-simrs-mod="valerie"],[data-simrs-mod="sharon"]) :is(.text-3xl,.text-2xl){font-size:24px!important;line-height:1.3!important;font-weight:800!important}
+html:is([data-simrs-mod="valerie"],[data-simrs-mod="sharon"]) .text-xl{font-size:18px!important;line-height:1.35!important}
+html:is([data-simrs-mod="valerie"],[data-simrs-mod="sharon"]) .text-lg{font-size:18px!important;line-height:1.4!important}
+html:is([data-simrs-mod="valerie"],[data-simrs-mod="sharon"]) .text-base{font-size:14px!important}
+html:is([data-simrs-mod="valerie"],[data-simrs-mod="sharon"]) .text-sm{font-size:14px!important;line-height:1.5!important}
+html:is([data-simrs-mod="valerie"],[data-simrs-mod="sharon"]) .text-xs{font-size:12px!important;line-height:1.45!important}
+html:is([data-simrs-mod="valerie"],[data-simrs-mod="sharon"]) :is(h1,h2,h3,h4):not(.text-white){color:var(--u-heading)!important}
+html[data-simrs-mod="mikael"] :is(.kpi .label,.metric .name){text-transform:none!important;letter-spacing:0!important}
+
+/* ---------- 11. FONT LABEL = JetBrains Mono (tombol, label field, header tabel, badge, kode) ---------- */
+html[data-simrs-mod] body :is(button,.btn,th,label,.badge,[class*="badge"],code,kbd,.mono,[class*="mrn"]){font-family:var(--u-mono)!important;letter-spacing:-.01em}
+html[data-simrs-mod] body :is(button,.btn){font-size:13px}
+html[data-simrs-mod] body label{font-weight:600;color:var(--u-body)}
+html[data-simrs-mod] body :is(.badge,[class*="badge"]){font-size:12px!important}
+
+/* ---------- 12. WARNA SERAGAM di semua modul ---------- */
+html[data-simrs-mod] body :is(h2,h3):not([class*="text-white"]){color:var(--u-heading)}
+html[data-simrs-mod] body :is(h2,h3){font-weight:600}
+html[data-simrs-mod="valerie"] :is(.bg-teal-600,.bg-teal-700,.bg-cyan-600,.bg-cyan-700,.bg-blue-600,.bg-emerald-600){background-color:var(--u-primary)!important}
+html[data-simrs-mod="valerie"] :is(.hover\:bg-teal-700,.hover\:bg-blue-700,.hover\:bg-cyan-700):hover{background-color:var(--u-primary-dark)!important}
+html[data-simrs-mod="valerie"] :is(.text-teal-600,.text-teal-700,.text-cyan-700,.text-blue-600){color:var(--u-primary)!important}
+html[data-simrs-mod="valerie"] :is(.bg-red-600,.bg-red-500){background-color:var(--u-danger)!important}
+html[data-simrs-mod="mikael"] .bar{background:#7FB6B6!important;border-radius:6px 6px 2px 2px!important}
+html[data-simrs-mod="mikael"] .bar:last-child{background:var(--u-primary)!important}
+html[data-simrs-mod="mikael"] .bar span{font-family:var(--u-mono)!important;font-size:11px!important}
+html[data-simrs-mod="mikael"] td:nth-child(2){white-space:nowrap}
+html[data-simrs-mod="max"] :is(.badge,.status,[class*="pill"]){border-radius:6px!important}

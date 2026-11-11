@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMRS - Electronic Medical Record</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- SIMRS: tema seragam portal (font, warna, ukuran) -->
+<script>document.documentElement.dataset.simrsMod="valerie";if(window.top!==window.self)document.documentElement.classList.add("embedded-simrs-module");</script>
+<link rel="stylesheet" id="simrs-module-theme" href="../../assets/module-theme.css">
+</head>
+
+<body class="bg-gray-50 text-slate-800 flex flex-col h-screen">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="h-16 text-white flex items-center justify-between px-6 shadow-sm"
+            style="background-color: #0D6E6E;">
+
+    <div class="flex items-center gap-3">
+
+      <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+        <img
+          src="logo-rs.png"
+          alt="Logo RS Suka Sehat"
+          class="w-full h-full object-contain"
+        >
+      </div>
+
+      <div>
+        <h1 class="font-bold text-lg">SIMRS</h1>
+        <p class="text-xs text-teal-100">RS Suka Sehat</p>
+      </div>
+
+    </div>
+
+
+    <div class="flex items-center gap-3">
+
+      <div class="text-right">
+        <p class="text-sm font-semibold">
+          dr. Valerie Adeline Nugroho
+        </p>
+
+        <p class="text-xs text-teal-100">
+          Dokter
+        </p>
+      </div>
+
+      <div class="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center">
+        👤
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ==================== MAIN LAYOUT ==================== -->
+  <div class="flex flex-1 overflow-hidden">
+
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="w-60 bg-white border-r border-gray-200 flex flex-col">
+
+      <div class="px-5 pt-6 pb-3">
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+          Menu Utama
+        </p>
+      </div>
+
+      <nav class="space-y-1 px-3">
+
+        <!-- Dashboard -->
+        <a href="#"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-gray-100">
+            ⌂
+          </span>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- EMR ACTIVE -->
+        <a href="#"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold"
+           style="background-color: #EAF6F8; color: #0D6E6E;">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm"
+                style="background-color: #D6E8EE;">
+            ▣
+          </span>
+          <span>Electronic Medical Record</span>
+        </a>
+
+        <!-- CPOE -->
+        <a href="cpoe.html"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm"
+                style="background-color: #EAF6F8;">
+            ▣
+          </span>
+          <span>CPOE / Order</span>
+        </a>
+
+        <!-- Pantau Status Order -->
+        <a href="cpoe.html"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-blue-50">
+            ◷
+          </span>
+          <span>Pantau Status Order</span>
+        </a>
+
+        <!-- Batalkan Order -->
+        <a href="cpoe.html"
+           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center text-sm bg-red-50">
+            ×
+          </span>
+          <span>Batalkan Order</span>
+        </a>
+
+      </nav>
+
+      <div class="mt-auto p-4">
+        <div class="bg-gray-50 border border-gray-100 rounded-lg p-3">
+          <p class="text-xs font-semibold text-gray-600">Sistem Informasi</p>
+          <p class="text-xs text-gray-400 mt-1">Electronic Medical Record</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+            <span class="text-xs text-green-600">Sistem aktif</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+
+    <!-- ==================== CONTENT ==================== -->
+    <main class="flex-1 overflow-y-auto">
+
+      <section class="p-6">
+
+
+        <!-- BREADCRUMB -->
+        <div class="flex items-center gap-2 text-xs text-gray-500 mb-3">
+
+          <span>SIMRS</span>
+          <span>›</span>
+          <span>EMR</span>
+          <span>›</span>
+
+          <span class="text-slate-700 font-medium">
+            Rekam Medis Pasien
+          </span>
+
+        </div>
+
+
+        <!-- TITLE -->
+        <div class="mb-5">
+
+          <h2 class="text-2xl font-bold text-slate-900">
+            Electronic Medical Record
+          </h2>
+
+          <p class="text-sm text-gray-500 mt-1">
+            Pencatatan dan pengelolaan rekam medis elektronik pasien.
+          </p>
+
+        </div>
+
+
+        <!-- ==================== STEPPER ==================== -->
+        <div class="bg-white border border-gray-200 rounded-xl px-6 py-4 mb-5">
+
+          <div class="flex items-center justify-between">
+
+            <!-- STEP 1 -->
+            <div class="flex items-center">
+              <div class="w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-bold"
+                   style="background-color: #0D6E6E;">
+                ✓
+              </div>
+              <span class="ml-2 text-xs font-medium" style="color: #0D6E6E;">
+                Pilih Pasien
+              </span>
+            </div>
+
+            <div class="flex-1 h-0.5 mx-3" style="background-color: #0D6E6E;"></div>
+
+            <!-- STEP 2 -->
+            <div class="flex items-center">
+              <div class="w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-bold"
+                   style="background-color: #0D6E6E;">
+                ✓
+              </div>
+              <span class="ml-2 text-xs font-medium" style="color: #0D6E6E;">
+                Verifikasi
+              </span>
+            </div>
+
+            <div class="flex-1 h-0.5 mx-3" style="background-color: #0D6E6E;"></div>
+
+            <!-- STEP 3 ACTIVE -->
+            <div class="flex items-center">
+              <div class="w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-bold"
+                   style="background-color: #0A4D68;">
+                3
+              </div>
+              <span class="ml-2 text-xs font-semibold" style="color: #0A4D68;">
+                Tinjau Data
+              </span>
+            </div>
+
+            <div class="flex-1 h-0.5 mx-3 bg-gray-200"></div>
+
+            <!-- STEP 4 -->
+            <div class="flex items-center">
+              <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold">
+                4
+              </div>
+              <span class="ml-2 text-xs text-gray-400">
+                Input Catatan
+              </span>
+            </div>
+
+            <div class="flex-1 h-0.5 mx-3 bg-gray-200"></div>
+
+            <!-- STEP 5 -->
+            <div class="flex items-center">
+              <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold">
+                5
+              </div>
+              <span class="ml-2 text-xs text-gray-400">
+                AI CDSS
+              </span>
+            </div>
+
+            <div class="flex-1 h-0.5 mx-3 bg-gray-200"></div>
+
+            <!-- STEP 6 -->
+            <div class="flex items-center">
+              <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center text-xs font-bold">
+                6
+              </div>
+              <span class="ml-2 text-xs text-gray-400">
+                Validasi &amp; Simpan
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================== PATIENT CARD ==================== -->
+        <div class="bg-white border border-gray-200 rounded-xl p-5 mb-5">
+
+          <div class="flex items-center justify-between">
+
+            <div class="flex items-center gap-4">
+
+              <div class="w-12 h-12 rounded-full bg-[#0D6E6E] text-white flex items-center justify-center font-semibold">
+                BS
+              </div>
+
+              <div>
+
+                <div class="flex items-center gap-2">
+
+                  <h3 class="font-semibold text-slate-800">
+                    Budi Santoso
+                  </h3>
+
+                  <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600 font-medium">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-500 mr-1 align-middle"></span>
+                    Terverifikasi
+                  </span>
+
+                </div>
+
+                <p class="text-xs text-gray-500 mt-1">
+                  No. RM:
+                  <span class="font-medium text-slate-700">
+                    RM-2026-000123
+                  </span>
+
+                  <span class="mx-2">|</span>
+
+                  Kunjungan:
+                  <span class="font-medium text-slate-700">
+                    KJ-001
+                  </span>
+                </p>
+
+              </div>
+            </div>
+
+            <div class="text-right">
+
+              <p class="text-xs text-gray-400">
+                Status Kunjungan
+              </p>
+
+              <p class="text-sm font-semibold text-[#0D6E6E] mt-1">
+                Rawat Jalan
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- DATA EMR TERSIMPAN -->
+        <!-- ================================================= -->
+
+        <div class="bg-white border border-gray-200 rounded-xl p-5 mb-5">
+
+
+          <!-- TITLE -->
+          <div class="flex items-center gap-3 mb-4">
+
+            <div class="w-9 h-9 rounded-lg bg-teal-50 text-[#0D6E6E] flex items-center justify-center">
+              ▤
+            </div>
+
+            <div>
+
+              <h3 class="font-semibold text-slate-800">
+                Data EMR Tersimpan
+              </h3>
+
+              <p class="text-xs text-gray-500">
+                Pilih kategori untuk meninjau data medis pasien.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- CATEGORY BUTTONS -->
+          <div class="flex flex-wrap gap-2 mb-4">
+
+            <button
+              onclick="showData('riwayat', this)"
+              class="data-button px-3 py-2 rounded-lg bg-[#0D6E6E] text-white text-xs font-medium"
+            >
+              Riwayat Penyakit
+            </button>
+
+
+            <button
+              onclick="showData('alergi', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Alergi
+            </button>
+
+
+            <button
+              onclick="showData('obat', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Obat
+            </button>
+
+
+            <button
+              onclick="showData('vital', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Vital Sign
+            </button>
+
+
+            <button
+              onclick="showData('pemeriksaan', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Pemeriksaan
+            </button>
+
+
+            <button
+              onclick="showData('lab', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Laboratorium
+            </button>
+
+
+            <button
+              onclick="showData('radiologi', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Radiologi
+            </button>
+
+
+            <button
+              onclick="showData('tindakan', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Tindakan
+            </button>
+
+
+            <button
+              onclick="showData('dokumen', this)"
+              class="data-button px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium hover:bg-gray-50"
+            >
+              Dokumen
+            </button>
+
+          </div>
+
+
+          <!-- DATA DISPLAY -->
+          <div
+            id="emrData"
+            class="border border-gray-200 rounded-lg p-5"
+          >
+
+            <!-- DEFAULT: RIWAYAT PENYAKIT -->
+
+            <div class="grid grid-cols-2 gap-6">
+
+
+              <div>
+
+                <p class="text-xs text-gray-500 mb-2">
+                  Riwayat Penyakit
+                </p>
+
+                <div class="space-y-3">
+
+                  <div class="border-l-4 border-[#0D6E6E] pl-3">
+
+                    <p class="text-sm font-semibold text-slate-800">
+                      Hipertensi
+                    </p>
+
+                    <p class="text-xs text-gray-500 mt-1">
+                      Didiagnosis sekitar 3 tahun yang lalu.
+                    </p>
+
+                    <p class="text-xs text-gray-400 mt-1">
+                      Terapi sebelumnya: Amlodipine
+                    </p>
+
+                  </div>
+
+
+                  <div class="border-l-4 border-[#0D6E6E] pl-3">
+
+                    <p class="text-sm font-semibold text-slate-800">
+                      Dislipidemia
+                    </p>
+
+                    <p class="text-xs text-gray-500 mt-1">
+                      Diketahui berdasarkan pemeriksaan sebelumnya.
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div>
+
+                <p class="text-xs text-gray-500 mb-2">
+                  Anamnesis Singkat
+                </p>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+
+                  <p class="text-sm text-gray-700 leading-relaxed">
+                    Pasien memiliki riwayat hipertensi dan dislipidemia.
+                    Tidak terdapat riwayat penyakit kronis lainnya yang
+                    tercatat pada EMR.
+                  </p>
+
+                  <p class="text-xs text-gray-400 mt-3">
+                    Terakhir diperbarui: 10 Agustus 2026
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- CATATAN MEDIS KUNJUNGAN SAAT INI -->
+        <!-- ================================================= -->
+
+        <div class="bg-white border border-gray-200 rounded-xl p-5 mb-5">
+
+
+          <div class="flex items-center gap-3 mb-5">
+
+            <div class="w-9 h-9 rounded-lg bg-teal-50 text-[#0D6E6E] flex items-center justify-center">
+              ✎
+            </div>
+
+            <div>
+
+              <h3 class="font-semibold text-slate-800">
+                Catatan Medis Kunjungan Saat Ini
+              </h3>
+
+              <p class="text-xs text-gray-500">
+                Masukkan data klinis berdasarkan hasil pemeriksaan pasien pada kunjungan ini.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="grid grid-cols-3 gap-5">
+
+
+            <!-- MAIN FORM -->
+            <div class="col-span-2">
+
+
+              <!-- SOAP -->
+              <label class="block text-sm font-medium text-slate-700 mb-2">
+                Catatan SOAP
+              </label>
+
+              <textarea
+                rows="5"
+                placeholder="Masukkan Subjective, Objective, Assessment, dan Plan..."
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-100"
+              ></textarea>
+
+
+              <!-- DIAGNOSIS + PEMERIKSAAN -->
+              <div class="grid grid-cols-2 gap-4 mt-4">
+
+
+                <div>
+
+                  <label class="block text-sm font-medium text-slate-700 mb-2">
+                    Diagnosis / ICD-10
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="Cari diagnosis atau kode ICD-10"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-100"
+                  >
+
+                </div>
+
+
+                <div>
+
+                  <label class="block text-sm font-medium text-slate-700 mb-2">
+                    Hasil Pemeriksaan
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="Masukkan hasil pemeriksaan"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-100"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- TTV -->
+              <div class="mt-5">
+
+                <label class="block text-sm font-medium text-slate-700 mb-3">
+                  Tanda Vital Kunjungan Saat Ini
+                </label>
+
+
+                <div class="grid grid-cols-4 gap-3">
+
+
+                  <div>
+
+                    <label class="text-xs text-gray-500">
+                      Tekanan Darah
+                    </label>
+
+                    <input
+                      type="text"
+                      placeholder="120/80"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mt-1"
+                    >
+
+                  </div>
+
+
+                  <div>
+
+                    <label class="text-xs text-gray-500">
+                      Nadi
+                    </label>
+
+                    <input
+                      type="text"
+                      placeholder="x/menit"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mt-1"
+                    >
+
+                  </div>
+
+
+                  <div>
+
+                    <label class="text-xs text-gray-500">
+                      Suhu
+                    </label>
+
+                    <input
+                      type="text"
+                      placeholder="°C"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mt-1"
+                    >
+
+                  </div>
+
+
+                  <div>
+
+                    <label class="text-xs text-gray-500">
+                      SpO₂
+                    </label>
+
+                    <input
+                      type="text"
+                      placeholder="%"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mt-1"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+            <div>
+
+
+              <!-- LAMPIRAN -->
+              <div class="border border-gray-200 rounded-lg p-4">
+
+                <h4 class="text-sm font-semibold text-slate-700 mb-3">
+                  Lampiran Dokumen
+                </h4>
+
+                <input
+                  type="file"
+                  class="w-full text-xs text-gray-500"
+                >
+
+                <p class="text-xs text-gray-400 mt-2">
+                  Format: PDF, JPG, PNG
+                </p>
+
+              </div>
+
+
+              <!-- AI CDSS -->
+              <div class="border border-teal-100 bg-teal-50 rounded-lg p-4 mt-4">
+
+                <div class="flex items-start gap-3">
+
+                  <div class="w-8 h-8 rounded-lg bg-white text-[#0D6E6E] flex items-center justify-center">
+                    🤖
+                  </div>
+
+
+                  <div class="flex-1">
+
+                    <h4 class="text-sm font-semibold text-[#0D6E6E]">
+                      Konsultasi AI CDSS
+                    </h4>
+
+                    <p class="text-xs text-gray-500 mt-1 leading-relaxed">
+                      Fitur pendukung keputusan klinis berdasarkan data pasien.
+                    </p>
+
+                    <button
+                      class="mt-3 bg-[#0D6E6E] text-white text-xs font-medium px-3 py-2 rounded-lg"
+                    >
+                      Konsultasi AI CDSS
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACTION BUTTONS -->
+          <div class="flex justify-end gap-2 mt-5 pt-4 border-t border-gray-100">
+
+            <button
+              type="button"
+              onclick="resetForm()"
+              class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600"
+            >
+              Reset
+            </button>
+
+            <button
+              type="button"
+              onclick="saveDraft()"
+              class="px-4 py-2 border border-[#0D6E6E] text-[#0D6E6E] rounded-lg text-sm font-medium"
+            >
+              Simpan Draft
+            </button>
+
+            <button
+              type="button"
+              onclick="saveNote()"
+              class="px-4 py-2 bg-[#0D6E6E] text-white rounded-lg text-sm font-medium"
+            >
+              Simpan
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- VALIDASI -->
+        <!-- ================================================= -->
+
+        <div class="bg-white border border-gray-200 rounded-xl px-5 py-4 mb-4">
+
+          <div class="flex items-center justify-between gap-5">
+
+
+            <div class="flex items-center gap-3">
+
+              <div class="w-9 h-9 rounded-lg bg-green-50 text-green-600 flex items-center justify-center">
+                ✓
+              </div>
+
+              <div>
+
+                <h3 class="text-sm font-semibold text-slate-800">
+                  Review & Validasi
+                </h3>
+
+                <p class="text-xs text-gray-500 mt-1">
+                  Periksa kelengkapan data sebelum disimpan.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="flex items-center gap-4 text-xs text-gray-600">
+
+              <span>
+                <span class="text-green-600">✓</span>
+                Pasien
+              </span>
+
+              <span>
+                <span class="text-green-600">✓</span>
+                SOAP
+              </span>
+
+              <span>
+                <span class="text-green-600">✓</span>
+                Diagnosis
+              </span>
+
+              <span>
+                <span class="text-green-600">✓</span>
+                TTV
+              </span>
+
+            </div>
+
+
+            <button
+              class="bg-[#0D6E6E] text-white text-sm font-medium px-4 py-2.5 rounded-lg"
+            >
+              Validasi & Simpan EMR
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- PERBAIKI DATA -->
+        <!-- ================================================= -->
+
+        <div class="bg-white border border-gray-200 rounded-xl px-5 py-4 mb-6">
+
+          <div class="flex items-center justify-between">
+
+
+            <div class="flex items-center gap-3">
+
+              <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center">
+                ✎
+              </div>
+
+              <div>
+
+                <h3 class="text-sm font-semibold text-slate-800">
+                  Perbaiki Data
+                </h3>
+
+                <p class="text-xs text-gray-500 mt-1">
+                  Lakukan koreksi jika terdapat data yang tidak sesuai atau belum lengkap.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <button
+              class="border border-[#0D6E6E] text-[#0D6E6E] text-sm font-medium px-4 py-2 rounded-lg"
+            >
+              Perbaiki Data
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="text-center text-xs text-gray-400 pb-4">
+          SIMRS RS Suka Sehat • Electronic Medical Record
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+
+    function showData(category, button) {
+
+      // Mengubah tampilan button yang aktif
+      const buttons = document.querySelectorAll(".data-button");
+
+      buttons.forEach(function(btn) {
+        btn.classList.remove("bg-[#0D6E6E]", "text-white");
+        btn.classList.add("border", "border-gray-200", "text-gray-600");
+      });
+
+      button.classList.remove("border", "border-gray-200", "text-gray-600");
+      button.classList.add("bg-[#0D6E6E]", "text-white");
+
+
+      // Area untuk menampilkan data
+      const dataArea = document.getElementById("emrData");
+
+
+      // Riwayat Penyakit
+      if (category === "riwayat") {
+
+        dataArea.innerHTML = `
+          <div class="grid grid-cols-2 gap-6">
+
+            <div>
+
+              <p class="text-xs text-gray-500 mb-2">
+                Riwayat Penyakit
+              </p>
+
+              <div class="space-y-3">
+
+                <div class="border-l-4 border-[#0D6E6E] pl-3">
+
+                  <p class="text-sm font-semibold text-slate-800">
+                    Hipertensi
+                  </p>
+
+                  <p class="text-xs text-gray-500 mt-1">
+                    Didiagnosis sekitar 3 tahun yang lalu.
+                  </p>
+
+                  <p class="text-xs text-gray-400 mt-1">
+                    Terapi sebelumnya: Amlodipine
+                  </p>
+
+                </div>
+
+                <div class="border-l-4 border-[#0D6E6E] pl-3">
+
+                  <p class="text-sm font-semibold text-slate-800">
+                    Dislipidemia
+                  </p>
+
+                  <p class="text-xs text-gray-500 mt-1">
+                    Diketahui berdasarkan pemeriksaan sebelumnya.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <p class="text-xs text-gray-500 mb-2">
+                Anamnesis Singkat
+              </p>
+
+              <div class="bg-gray-50 rounded-lg p-4">
+
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  Pasien memiliki riwayat hipertensi dan dislipidemia.
+                  Tidak terdapat riwayat penyakit kronis lainnya yang
+                  tercatat pada EMR.
+                </p>
+
+                <p class="text-xs text-gray-400 mt-3">
+                  Terakhir diperbarui: 10 Agustus 2026
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      // Alergi
+      else if (category === "alergi") {
+
+        dataArea.innerHTML = `
+          <div class="grid grid-cols-2 gap-6">
+
+            <div>
+
+              <p class="text-xs text-gray-500 mb-2">
+                Riwayat Alergi
+              </p>
+
+              <p class="text-sm font-semibold text-slate-800">
+                Tidak ada alergi yang tercatat
+              </p>
+
+              <p class="text-xs text-gray-500 mt-2">
+                Alergi obat: Tidak ada
+              </p>
+
+              <p class="text-xs text-gray-500 mt-1">
+                Alergi makanan: Tidak ada
+              </p>
+
+            </div>
+
+
+            <div class="bg-gray-50 rounded-lg p-4">
+
+              <p class="text-xs text-gray-500">
+                Status
+              </p>
+
+              <p class="text-sm font-medium text-green-600 mt-1">
+                Tidak ada alergi
+              </p>
+
+              <p class="text-xs text-gray-400 mt-2">
+                Terakhir diperbarui: 10 Agustus 2026
+              </p>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      // Obat
+      else if (category === "obat") {
+
+        dataArea.innerHTML = `
+          <div>
+
+            <p class="text-xs text-gray-500 mb-3">
+              Obat yang Tercatat
+            </p>
+
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+
+              <table class="w-full text-sm">
+
+                <thead class="bg-gray-50">
+
+                  <tr>
+
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">
+                      Nama Obat
+                    </th>
+
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">
+                      Dosis
+                    </th>
+
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">
+                      Frekuensi
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody>
+
+                  <tr class="border-t">
+
+                    <td class="px-4 py-3 text-sm">
+                      Amlodipine
+                    </td>
+
+                    <td class="px-4 py-3 text-sm">
+                      5 mg
+                    </td>
+
+                    <td class="px-4 py-3 text-sm">
+                      1 × 1 tablet
+                    </td>
+
+                  </tr>
+
+                  <tr class="border-t">
+
+                    <td class="px-4 py-3 text-sm">
+                      -
+                    </td>
+
+                    <td class="px-4 py-3 text-sm">
+                      -
+                    </td>
+
+                    <td class="px-4 py-3 text-sm">
+                      -
+                    </td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      // Vital Sign
+      else if (category === "vital") {
+
+        dataArea.innerHTML = `
+          <div>
+
+            <p class="text-xs text-gray-500 mb-3">
+              Vital Sign Terakhir
+            </p>
+
+            <div class="grid grid-cols-5 gap-3">
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">Tekanan Darah</p>
+                <p class="text-lg font-semibold text-slate-800 mt-2">
+                  130/80
+                </p>
+                <p class="text-xs text-gray-400">
+                  mmHg
+                </p>
+              </div>
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">Nadi</p>
+                <p class="text-lg font-semibold text-slate-800 mt-2">
+                  82
+                </p>
+                <p class="text-xs text-gray-400">
+                  x/menit
+                </p>
+              </div>
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">RR</p>
+                <p class="text-lg font-semibold text-slate-800 mt-2">
+                  18
+                </p>
+                <p class="text-xs text-gray-400">
+                  x/menit
+                </p>
+              </div>
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">Suhu</p>
+                <p class="text-lg font-semibold text-slate-800 mt-2">
+                  36.7
+                </p>
+                <p class="text-xs text-gray-400">
+                  °C
+                </p>
+              </div>
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">SpO₂</p>
+                <p class="text-lg font-semibold text-slate-800 mt-2">
+                  98
+                </p>
+                <p class="text-xs text-gray-400">
+                  %
+                </p>
+              </div>
+
+            </div>
+
+            <p class="text-xs text-gray-400 mt-3">
+              Pemeriksaan terakhir: 10 Agustus 2026
+            </p>
+
+          </div>
+        `;
+
+      }
+
+
+      // Pemeriksaan
+      else if (category === "pemeriksaan") {
+
+        dataArea.innerHTML = `
+          <div class="grid grid-cols-2 gap-6">
+
+            <div>
+
+              <p class="text-xs text-gray-500 mb-2">
+                Pemeriksaan Fisik
+              </p>
+
+              <p class="text-sm font-medium text-slate-800">
+                Dalam batas normal
+              </p>
+
+              <p class="text-xs text-gray-500 mt-2">
+                Kesadaran compos mentis.
+              </p>
+
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+
+              <p class="text-xs text-gray-500">
+                Catatan Pemeriksaan
+              </p>
+
+              <p class="text-sm text-slate-700 mt-2">
+                Tidak ditemukan kelainan bermakna pada pemeriksaan terakhir.
+              </p>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      // Laboratorium
+      else if (category === "lab") {
+
+        dataArea.innerHTML = `
+          <div>
+
+            <p class="text-xs text-gray-500 mb-3">
+              Hasil Laboratorium Terakhir
+            </p>
+
+            <div class="grid grid-cols-3 gap-4">
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">
+                  Hemoglobin
+                </p>
+                <p class="text-sm font-semibold mt-1">
+                  14.2 g/dL
+                </p>
+              </div>
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">
+                  Leukosit
+                </p>
+                <p class="text-sm font-semibold mt-1">
+                  7.200 /µL
+                </p>
+              </div>
+
+              <div class="border border-gray-200 rounded-lg p-4">
+                <p class="text-xs text-gray-500">
+                  Gula Darah
+                </p>
+                <p class="text-sm font-semibold mt-1">
+                  102 mg/dL
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      // Radiologi
+      else if (category === "radiologi") {
+
+        dataArea.innerHTML = `
+          <div class="grid grid-cols-2 gap-6">
+
+            <div>
+
+              <p class="text-xs text-gray-500 mb-2">
+                Pemeriksaan Radiologi
+              </p>
+
+              <p class="text-sm font-semibold text-slate-800">
+                Tidak ada pemeriksaan radiologi terbaru.
+              </p>
+
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+
+              <p class="text-xs text-gray-500">
+                Riwayat
+              </p>
+
+              <p class="text-sm text-slate-700 mt-2">
+                Tidak terdapat hasil radiologi yang perlu ditinjau pada kunjungan ini.
+              </p>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      // Tindakan
+      else if (category === "tindakan") {
+
+        dataArea.innerHTML = `
+          <div>
+
+            <p class="text-xs text-gray-500 mb-3">
+              Riwayat Tindakan Medis
+            </p>
+
+            <div class="border border-gray-200 rounded-lg p-4">
+
+              <p class="text-sm font-semibold text-slate-800">
+                Tidak ada tindakan medis yang tercatat.
+              </p>
+
+              <p class="text-xs text-gray-400 mt-2">
+                Data tindakan terakhir tidak tersedia.
+              </p>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+
+      // Dokumen
+      else if (category === "dokumen") {
+
+        dataArea.innerHTML = `
+          <div>
+
+            <p class="text-xs text-gray-500 mb-3">
+              Dokumen Pasien
+            </p>
+
+            <div class="space-y-2">
+
+              <div class="flex items-center justify-between border border-gray-200 rounded-lg p-3">
+
+                <div>
+
+                  <p class="text-sm font-medium">
+                    Hasil Pemeriksaan Laboratorium
+                  </p>
+
+                  <p class="text-xs text-gray-400">
+                    PDF • 10 Agustus 2026
+                  </p>
+
+                </div>
+
+                <button class="text-xs text-[#0D6E6E] font-medium">
+                  Lihat
+                </button>
+
+              </div>
+
+
+              <div class="flex items-center justify-between border border-gray-200 rounded-lg p-3">
+
+                <div>
+
+                  <p class="text-sm font-medium">
+                    Surat Hasil Pemeriksaan
+                  </p>
+
+                  <p class="text-xs text-gray-400">
+                    PDF • 10 Agustus 2026
+                  </p>
+
+                </div>
+
+                <button class="text-xs text-[#0D6E6E] font-medium">
+                  Lihat
+                </button>
+
+              </div>
+
+
+              <div class="flex items-center justify-between border border-gray-200 rounded-lg p-3">
+
+                <div>
+
+                  <p class="text-sm font-medium">
+                    Dokumen Kunjungan Sebelumnya
+                  </p>
+
+                  <p class="text-xs text-gray-400">
+                    PDF • 02 Juli 2026
+                  </p>
+
+                </div>
+
+                <button class="text-xs text-[#0D6E6E] font-medium">
+                  Lihat
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    function saveNote() {
+      alert("Catatan medis berhasil disimpan.");
+    }
+
+    function saveDraft() {
+      alert("Catatan medis berhasil disimpan sebagai draft.");
+    }
+
+    function resetForm() {
+      document.querySelectorAll("textarea, input").forEach(function(field) {
+        if (field.type !== "file") field.value = "";
+      });
+    }
+
+  </script>
+
+</body>
+</html>

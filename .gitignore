@@ -1,0 +1,17 @@
+# Dependensi Node (besar, bisa di-install ulang dengan npm install)
+node_modules/
+
+# File hasil unggahan pengguna (gambar radiologi)
+uploads/*
+!uploads/.htaccess
+
+# File sistem & editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+~$*
+*.log
+.vercel
+.env

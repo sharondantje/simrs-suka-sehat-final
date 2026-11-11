@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+  --color-primary: #0D6E6E;
+  --color-primary-dark: #0A4D68;
+  --color-primary-light: #EAF6F8;
+  --color-bg: #F3FAFC;
+  --color-card: #ffffff;
+  --color-navy: #164E63;
+  --color-navy-light: #315E6E;
+  --color-muted: #66869A;
+  --color-border: #D6E8EE;
+  --color-status-green: #117A68;
+  --color-status-green-bg: #D9F3EA;
+  --color-status-yellow: #A66700;
+  --color-status-yellow-bg: #FFF0D5;
+  --color-status-red: #C0362C;
+  --color-status-red-bg: #FDE7E7;
+  --color-status-blue: #1D5FA8;
+  --color-status-blue-bg: #E1EEFB;
+  --font-ui: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-ui);
+  background-color: var(--color-bg);
+  color: var(--color-navy);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #C7DDE5; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #8CA5B0; }
+
+.font-mono { font-family: var(--font-mono); }
+
+.badge-green {
+  background: var(--color-status-green-bg);
+  color: var(--color-status-green);
+}
+.badge-yellow {
+  background: var(--color-status-yellow-bg);
+  color: var(--color-status-yellow);
+}
+.badge-red {
+  background: var(--color-status-red-bg);
+  color: var(--color-status-red);
+}
+.badge-blue {
+  background: var(--color-status-blue-bg);
+  color: var(--color-status-blue);
+}

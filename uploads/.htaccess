@@ -1,0 +1,5 @@
+# Folder unggahan (gambar radiologi). Jangan jalankan skrip apa pun dari sini.
+Options -Indexes -ExecCGI
+<FilesMatch "\.(php|phtml|phar|php[0-9]?|pl|py|cgi|sh)$">
+    Require all denied
+</FilesMatch>
