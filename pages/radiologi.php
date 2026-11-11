@@ -29,10 +29,15 @@ if ($act = ui_post_action()) {
             $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
             if (!in_array($ext, ['jpg', 'jpeg', 'png', 'dcm', 'pdf'], true)) { flash('danger', 'Format gambar harus JPG/PNG/DCM/PDF.'); redirect($back); }
             $dir = dirname(__DIR__) . '/uploads/radiologi';
-            if (!is_dir($dir)) mkdir($dir, 0775, true);
             $name = $r['order_no'] . '-' . time() . '.' . $ext;
-            move_uploaded_file($_FILES['image']['tmp_name'], "$dir/$name");
-            $path = "uploads/radiologi/$name";
+            if ((is_dir($dir) || @mkdir($dir, 0775, true)) && is_writable($dir) && move_uploaded_file($_FILES['image']['tmp_name'], "$dir/$name")) {
+                $path = "uploads/radiologi/$name";
+            } else {
+                // Hosting tanpa penyimpanan file (mis. Vercel): simpan gambar di database
+                if ($_FILES['image']['size'] > 4 * 1024 * 1024) { flash('danger', 'Ukuran file maksimal 4 MB.'); redirect($back); }
+                $mime = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'pdf' => 'application/pdf', 'dcm' => 'application/dicom'][$ext];
+                $path = 'file.php?id=' . app_file_store($name, $mime, (string)file_get_contents($_FILES['image']['tmp_name']));
+            }
         }
         q("UPDATE radiology_results SET image_path=?, status='menunggu_bacaan' WHERE id=?", [$path ?: 'PACS:' . $r['order_no'], $r['id']]);
         audit('UPDATE', RAD_MOD, 'Akuisisi gambar selesai ' . $r['order_no']);
@@ -126,7 +131,7 @@ layout_start($PAGE['title'], $key, $PAGE['section']);
           'Jenis Layanan'     => e(ui_label($cur['visit_type'] ?? '-')),
           'Indikasi Klinis'   => e($cur['indication'] ?? '-'),
           'Jadwal Pemeriksaan'=> '<span class="mono">' . tgl($cur['scheduled_at'], true) . '</span>',
-          'Gambar / PACS'     => $cur['image_path'] ? (str_starts_with($cur['image_path'], 'uploads/') ? '<a href="' . e($cur['image_path']) . '" target="_blank">Lihat gambar</a>' : '<span class="mono">' . e($cur['image_path']) . '</span>') : '-',
+          'Gambar / PACS'     => $cur['image_path'] ? ((str_starts_with($cur['image_path'], 'uploads/') || str_starts_with($cur['image_path'], 'file.php?')) ? '<a href="' . e($cur['image_path']) . '" target="_blank">Lihat gambar</a>' : '<span class="mono">' . e($cur['image_path']) . '</span>') : '-',
           'Radiolog'          => e($radName ?: '-'),
       ]) ?>
     </div>

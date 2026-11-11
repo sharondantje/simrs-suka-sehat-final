@@ -67,6 +67,24 @@ function db_ok(): bool
 {
     try { db(); return true; } catch (Throwable $e) { return false; }
 }
+/* File unggahan yang disimpan di database (dipakai bila server tidak bisa menulis ke folder uploads/) */
+function app_files_table(): void
+{
+    db()->exec('CREATE TABLE IF NOT EXISTS app_files (
+        id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(190) NOT NULL,
+        mime VARCHAR(100) NOT NULL,
+        data LONGBLOB NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) DEFAULT CHARSET=utf8mb4');
+}
+function app_file_store(string $name, string $mime, string $data): int
+{
+    app_files_table();
+    $st = db()->prepare('INSERT INTO app_files (name, mime, data) VALUES (?,?,?)');
+    $st->execute([$name, $mime, $data]);
+    return (int)db()->lastInsertId();
+}
 function q(string $sql, array $p = []): PDOStatement { $st = db()->prepare($sql); $st->execute($p); return $st; }
 function q_all(string $sql, array $p = []): array { return q($sql, $p)->fetchAll(); }
 function q_one(string $sql, array $p = []) { $r = q($sql, $p)->fetch(); return $r === false ? null : $r; }
